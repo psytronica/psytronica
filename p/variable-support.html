@@ -1,0 +1,669 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <base href="../" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Web-разработка, PHP, Javascript, jQuery, Joomla" />
+    <meta name="rights" content="teafortwo.ru" />
+    <meta name="description" content="Давайте продолжим работу над нашим маленьким примером отладчика и добавим в него отображение переменных.Шаг" />
+    <meta name="generator" content="Psytronica.ru" />
+    <meta content='IE=edge' http-equiv='X-UA-Compatible'/>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+	<meta name="yandex-verification" content="70dcadaa2851af41" />
+	<link href="./yinyang.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+
+    <title>Psytronica.ru - Web-разработка, инстранные языки, Eclipse и разные разности</title>
+    <link rel="stylesheet" href="./css/psytronica1.css" type="text/css" media="screen" /> 
+    <script src="./js/psytronica2.js" type="text/javascript"></script>
+
+
+
+
+</head>
+<body id='psy_body_p_variable-support' onload="setBodyWidth();">
+<div id="psy_body_inner">
+
+<div id="psytronica_menu_wrapper">
+    <div id="psytronica_menu" class="ddsmoothmenu">
+
+
+        <ul>
+            <li><a href='./index.html' class='psy_noactive'>Главная</a></li>
+            <li><a href='./search/label/разработки.html' class='psy_noactive'>Мои разработки</a>
+            </li>
+          <li><a href='./me.html' class='psy_noactive'>Контакты</a></li>
+        </ul>
+
+
+
+	<div id="psytronica_search" class='psy_search_div'>
+		  <input type="text" id='psy_search'  title="keyword" placeholder="Поиск..."/>
+		  <div id='psy_search_results'></div>
+	</div>
+
+        <br style="clear: left" />
+    </div> <!-- end of psytronica_menu -->
+</div> <!-- end of psytronica_menu_wrapper -->
+
+
+<div id="psytronica_header_wrapper" class="psytronica_header_other">
+    <div id="psytronica_header" class="header_home">
+        
+<div id="psytronica_sitetitle_bar">
+    <div id="site_title"><h1><a href='./index.html' class='psy_noactive'>Psytronica</a></h1></div>
+
+    <div id="mid_title">
+        Web-разработка, иностранные языки, Eclipse  и разные разности
+    </div>
+    <div class="cleaner"></div>
+</div>
+
+        
+
+    </div> <!-- end of header -->
+</div> <!-- end of header_wrapper -->
+
+
+<div id="psytronica_after_header">
+
+            <h3><a href='./2015/10/joomla-3x-zygoprofile-hkmprofile.html' class='psy_noactive'>Zygo Profile</a></h3>
+            <h3><a href='./2016/10/shabdatra.html' class='psy_noactive'>Санскрит - словоформы</a></h3>
+            <h3><a href='./2015/10/verbos-irregulares-android-kivy-python.html' class='psy_noactive'>Verbos Irregulares</a></h3>
+
+</div>
+
+
+
+
+
+
+
+<a name="blog"></a>
+
+<div id="psytronica_main_wrapper">
+
+    <div id="psytronica_main_inner">
+        <div id="psytronica_main">
+            <div id="psytronica_content_area">
+
+                 
+<div id="psytronica_blog">
+
+<div class="psytronica_post psy_post_page">
+    <h2>9. Поддержка переменных.</h2>
+
+    
+<div class="date"><div class='psy_page_date'>09.11.2015</div></div>
+
+
+    <div class="psytronica_post_content" >
+        
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Давайте продолжим работу над нашим маленьким примером отладчика и добавим в него отображение переменных.<br />
+<br />
+<h4 style="text-align: left;">
+Шаг 1. Реализация классов переменных.</h4>
+<br />
+Переменные привяжутся к кадрам стека (<b>StackFrames</b>) и будут запрошены только в тот момент, когда отладчик будет приостановлен. Чтобы реализовать их, нам нужно описание переменных, сохраненное в <b>TextVariable</b>:<br />
+<br />
+<!-- HTML generated using hilite.me --><br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="color:#777; line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f92672;">package</span> <span style="color: #f8f8f2;">com</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">codeandme</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">textinterpreter</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">debugger</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">model</span><span style="color: #f92672;">;</span>  
+  
+<span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">class</span> <span style="color: #a6e22e;">TextVariable</span> <span style="color: #66d9ef;">extends</span> <span style="color: #f8f8f2;">TextDebugElement</span> <span style="color: #66d9ef;">implements</span> <span style="color: #f8f8f2;">IVariable</span> <span style="color: #f92672;">{</span>  
+  
+ <span style="color: #66d9ef;">private</span> <span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">mName</span><span style="color: #f92672;">;</span>  
+ <span style="color: #66d9ef;">private</span> <span style="color: #f8f8f2;">IValue</span> <span style="color: #f8f8f2;">mValue</span><span style="color: #f92672;">;</span>  
+  
+ <span style="color: #66d9ef;">protected</span> <span style="color: #a6e22e;">TextVariable</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IDebugTarget</span> <span style="color: #f8f8f2;">target</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">name</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">value</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">super</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">target</span><span style="color: #f92672;">);</span>  
+  <span style="color: #f8f8f2;">mName</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">name</span><span style="color: #f92672;">;</span>  
+  <span style="color: #f8f8f2;">setValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">value</span><span style="color: #f92672;">);</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">setValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">expression</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #f8f8f2;">mValue</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">TextValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">getDebugTarget</span><span style="color: #f92672;">(),</span> <span style="color: #f8f8f2;">expression</span><span style="color: #f92672;">);</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">setValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IValue</span> <span style="color: #f8f8f2;">value</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #f8f8f2;">mValue</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">value</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">supportsValueModification</span><span style="color: #f92672;">()</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">verifyValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">expression</span><span style="color: #f92672;">)</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">verifyValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IValue</span> <span style="color: #f8f8f2;">value</span><span style="color: #f92672;">)</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #f8f8f2;">IValue</span> <span style="color: #a6e22e;">getValue</span><span style="color: #f92672;">()</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #f8f8f2;">mValue</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #f8f8f2;">String</span> <span style="color: #a6e22e;">getName</span><span style="color: #f92672;">()</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #f8f8f2;">mName</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #f8f8f2;">String</span> <span style="color: #a6e22e;">getReferenceTypeName</span><span style="color: #f92672;">()</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #e6db74;">"text type"</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">hasValueChanged</span><span style="color: #f92672;">()</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+<span style="color: #f92672;">}</span>  
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+<br />
+Реализация достаточно проста и не позволяет модифицировать содержимое переменных.<br />
+ </div>
+ <!--more-->
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<br />
+Текущее значение сохранено в другом классе:<br />
+<br />
+<!-- HTML generated using hilite.me --><br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="color:#777; line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f92672;">package</span> <span style="color: #f8f8f2;">com</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">codeandme</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">textinterpreter</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">debugger</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">model</span><span style="color: #f92672;">;</span>  
+  
+<span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">org.eclipse.debug.core.DebugException</span><span style="color: #f92672;">;</span>  
+<span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">org.eclipse.debug.core.model.IDebugTarget</span><span style="color: #f92672;">;</span>  
+<span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">org.eclipse.debug.core.model.IValue</span><span style="color: #f92672;">;</span>  
+<span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">org.eclipse.debug.core.model.IVariable</span><span style="color: #f92672;">;</span>  
+  
+<span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">class</span> <span style="color: #a6e22e;">TextValue</span> <span style="color: #66d9ef;">extends</span> <span style="color: #f8f8f2;">TextDebugElement</span> <span style="color: #66d9ef;">implements</span> <span style="color: #f8f8f2;">IValue</span> <span style="color: #f92672;">{</span>  
+  
+ <span style="color: #66d9ef;">private</span> <span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">mValue</span><span style="color: #f92672;">;</span>  
+  
+ <span style="color: #66d9ef;">public</span> <span style="color: #a6e22e;">TextValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IDebugTarget</span> <span style="color: #f8f8f2;">target</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">value</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">super</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">target</span><span style="color: #f92672;">);</span>  
+  
+  <span style="color: #f8f8f2;">mValue</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">value</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #f8f8f2;">String</span> <span style="color: #a6e22e;">getReferenceTypeName</span><span style="color: #f92672;">()</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #e6db74;">"text type"</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #f8f8f2;">String</span> <span style="color: #a6e22e;">getValueString</span><span style="color: #f92672;">()</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #f8f8f2;">mValue</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">isAllocated</span><span style="color: #f92672;">()</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">true</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #f8f8f2;">IVariable</span><span style="color: #f92672;">[]</span> <span style="color: #a6e22e;">getVariables</span><span style="color: #f92672;">()</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">IVariable</span><span style="color: #f92672;">[</span><span style="color: #ae81ff;">0</span><span style="color: #f92672;">];</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">hasVariables</span><span style="color: #f92672;">()</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+<span style="color: #f92672;">}</span>  
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+<br />
+Чтобы отобразить иерархические структуры, значение должно содержать дочерние переменные (напр. поля класса, элементы коллекции, ...). В этом случае вам так же необходимо реализовать <b>hasVariables</b>() и <b>getVariables</b>().<br />
+<br />
+Вы могли обратить внимание, что оба класса определяют метод <b>getReferenceTypeName</b>(). В то время как T<b>extVariable.getReferenceTypeName</b>() обозначает объявленный тип переменной, <b>Textvalue.getReferenceTypeName</b>() обозначает фактический тип. Поглядите на java-пример:<br />
+<br />
+<!-- HTML generated using hilite.me --><br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;">1</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f8f8f2;">IValue</span> <span style="color: #f8f8f2;">value</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">TextValue</span><span style="color: #f92672;">();</span>  
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+<br />
+Объявленный тип будет <b>IValue</b>, в то время как реальный тип - <b>TextValue</b>. Вы можете включить эти колонки в <i>debug view</i>, открыв меню <i>Variables view</i> и выбрав <i>Layout / Select Columns...</i><br />
+<br />
+<h4 style="text-align: left;">
+Шаг 2. Обновление переменных.</h4>
+<br />
+А сейчас важный вопрос: "Как и когда обновлять переменные"?<br />
+<br />
+Для начала обратим внимание, что фреймворк отладчика запрашивает переменные когда элемент StackFrame выбран, что происходит в режиме временной приостановки. Для того, чтобы нам отправить запросы отладчика в асинхронном режиме, у нас есть два варианта:<br />
+<br />
+<ol style="text-align: left;">
+<li>Заполнить все стековые кадры автоматически по наступлению события временной приостановки на тот случай, чтобы наш пользователь мог запросить их.</li>
+<li>Для начала доставить устаревшие/не имеющие данных и обновить настолько быстро насколько возможно.</li>
+</ol>
+<br />
+В качестве демонстрации я выберу второй вариант: мы отобразим все переменные, которые мы сохранили в последнем запросе и вызовем асинхронное обновление.<br />
+<br />
+<!-- HTML generated using hilite.me --><br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="color:#777; line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f92672;">package</span> <span style="color: #f8f8f2;">com</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">codeandme</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">textinterpreter</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">debugger</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">model</span><span style="color: #f92672;">;</span>  
+  
+<span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">class</span> <span style="color: #a6e22e;">TextStackFrame</span> <span style="color: #66d9ef;">extends</span> <span style="color: #f8f8f2;">TextDebugElement</span> <span style="color: #66d9ef;">implements</span> <span style="color: #f8f8f2;">IStackFrame</span> <span style="color: #f92672;">{</span>  
+  
+ <span style="color: #66d9ef;">private</span> <span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">List</span><span style="color: #f92672;">&lt;</span><span style="color: #f8f8f2;">TextVariable</span><span style="color: #f92672;">&gt;</span> <span style="color: #f8f8f2;">mVariables</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">ArrayList</span><span style="color: #f92672;">&lt;</span><span style="color: #f8f8f2;">TextVariable</span><span style="color: #f92672;">&gt;();</span>  
+ <span style="color: #66d9ef;">private</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #f8f8f2;">mDirtyVariables</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">true</span><span style="color: #f92672;">;</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">synchronized</span> <span style="color: #f8f8f2;">IVariable</span><span style="color: #f92672;">[]</span> <span style="color: #a6e22e;">getVariables</span><span style="color: #f92672;">()</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">mDirtyVariables</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+   <span style="color: #f8f8f2;">mDirtyVariables</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+   <span style="color: #f8f8f2;">getDebugTarget</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">fireModelEvent</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">FetchVariablesRequest</span><span style="color: #f92672;">());</span>  
+  <span style="color: #f92672;">}</span>  
+  
+  <span style="color: #66d9ef;">return</span> <span style="color: #f8f8f2;">mVariables</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">toArray</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">IVariable</span><span style="color: #f92672;">[</span><span style="color: #f8f8f2;">mVariables</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">size</span><span style="color: #f92672;">()]);</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">synchronized</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">setVariables</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">Map</span><span style="color: #f92672;">&lt;</span><span style="color: #f8f8f2;">String</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">String</span><span style="color: #f92672;">&gt;</span> <span style="color: #f8f8f2;">variables</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">for</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">name</span> <span style="color: #f92672;">:</span> <span style="color: #f8f8f2;">variables</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">keySet</span><span style="color: #f92672;">())</span> <span style="color: #f92672;">{</span>  
+   <span style="color: #66d9ef;">boolean</span> <span style="color: #f8f8f2;">processed</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+   <span style="color: #75715e;">// try to find existing variable  </span>
+   <span style="color: #66d9ef;">for</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">TextVariable</span> <span style="color: #f8f8f2;">variable</span> <span style="color: #f92672;">:</span> <span style="color: #f8f8f2;">mVariables</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+    <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">variable</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getName</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">equals</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">name</span><span style="color: #f92672;">))</span> <span style="color: #f92672;">{</span>  
+     <span style="color: #75715e;">// variable exists  </span>
+     <span style="color: #f8f8f2;">variable</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">setValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">variables</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">get</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">name</span><span style="color: #f92672;">));</span>  
+     <span style="color: #f8f8f2;">variable</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">fireChangeEvent</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">DebugEvent</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">CONTENT</span><span style="color: #f92672;">);</span>  
+     <span style="color: #f8f8f2;">processed</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">true</span><span style="color: #f92672;">;</span>  
+     <span style="color: #66d9ef;">break</span><span style="color: #f92672;">;</span>  
+    <span style="color: #f92672;">}</span>  
+   <span style="color: #f92672;">}</span>  
+  
+   <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(!</span><span style="color: #f8f8f2;">processed</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+    <span style="color: #75715e;">// not found, create new variable  </span>
+    <span style="color: #f8f8f2;">TextVariable</span> <span style="color: #f8f8f2;">textVariable</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">TextVariable</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">getDebugTarget</span><span style="color: #f92672;">(),</span> <span style="color: #f8f8f2;">name</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">variables</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">get</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">name</span><span style="color: #f92672;">));</span>  
+    <span style="color: #f8f8f2;">mVariables</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">add</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">textVariable</span><span style="color: #f92672;">);</span>  
+    <span style="color: #f8f8f2;">textVariable</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">fireCreationEvent</span><span style="color: #f92672;">();</span>  
+   <span style="color: #f92672;">}</span>  
+  <span style="color: #f92672;">}</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">synchronized</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">fireChangeEvent</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">int</span> <span style="color: #f8f8f2;">detail</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #f8f8f2;">mDirtyVariables</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">true</span><span style="color: #f92672;">;</span>  
+  
+  <span style="color: #66d9ef;">super</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">fireChangeEvent</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">detail</span><span style="color: #f92672;">);</span>  
+ <span style="color: #f92672;">}</span>  
+<span style="color: #f92672;">}</span>  
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+<br />
+<a href="http://codeandme.googlecode.com/svn/trunk/blog/debugger/09/com.codeandme.textinterpreter.debugger/src/com/codeandme/textinterpreter/debugger/TextDebugger.java" target="_blank">TextDebugger</a> отправляет свой список переменных посредством нового <a href="http://codeandme.googlecode.com/svn/trunk/blog/debugger/09/com.codeandme.textinterpreter.debugger/src/com/codeandme/textinterpreter/debugger/events/debugger/VariablesEvent.java" target="_blank">события</a> &nbsp;классу <a href="http://codeandme.googlecode.com/svn/trunk/blog/debugger/09/com.codeandme.textinterpreter.debugger/src/com/codeandme/textinterpreter/debugger/model/TextDebugTarget.java" target="_blank">TextDebugTarget</a>, который передает вызов в верхний StackFrame внутри метода &nbsp;<b>handleEvent</b>(). В течение обновления мы отсылаем либо событие изменения или создания для обновленных переменных. Конечно, настоящая реализация должна была бы быть более осмысленной, чем реализованная выше версия и использовать разумное сравнение и кеширование.<br />
+<br />
+Если вы хотите, чтобы измененный контент был подсвечен, вам стоит реализовать <b>IVariable.hasValueChanged</b>().<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="./images/eclipse/debugger/debug_vars.png" class="psy_img_up" title="Подсветка измененного контекста" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="auto" src="./images/eclipse/debugger/debug_vars.png" width="90%" /></a></div>
+<br />
+<br />
+<h4 style="text-align: left;">
+UI проблемы</h4>
+<br />
+Существует еще не исправленный мной момент: иногда <i>Variables view</i> может оставаться пустым, когда отладчик временно приостанавливается. Если убрать view назад, а затем снова вытащить вперед, проблема решается. У меня нет уверенности, является ли это проблемой моего кода или фреймворка отладчика.</div>
+<br />
+<div style="text-align: right;">
+<a href="http://codeandme.blogspot.ru/2013/11/debugger-9-variables-support.html" target="_blank"><i>Английский оригинал и исходные коды</i></a></div>
+
+
+    </div>
+
+<div class="clearfix"></div>
+
+
+  
+
+<script type='text/javascript'>
+var disqus_shortname = 'psytronica-ru';
+var disqus_blogger_current_url = "./p/variable-support.html";
+if (!disqus_blogger_current_url.length) {
+    disqus_blogger_current_url = "./p/variable-support.html";
+}
+var disqus_blogger_homepage_url = "./";
+var disqus_blogger_canonical_homepage_url = "./";
+</script>
+<style type='text/css'>
+    #comments {display:none;}
+</style>
+
+<style type='text/css'>
+    .post-comment-link { visibility: hidden; }
+</style>
+
+
+
+
+    <div class="cleaner"></div>
+</div>
+
+</div>
+
+
+            </div>
+            <div id="psytronica_right_column">
+                <div id="psytronica_right_column_inset">
+                    <div id="psytronica_right_column_inner">
+                      <div id="psytronica_right_column_innering">
+                        
+<h5>Облако тегов</h5>
+<div class='psy_tags2'><a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/cke.html'>cke<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/eclipse.html'>eclipse<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/filemanager.html'>filemanager<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/inno.html'>inno<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/jlnodoubles.html'>jlnodoubles<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='8' style='font-size:20px; color:rgba(255, 221, 173, 1)' href='./search/label/joomla.html'>joomla<span>&nbsp;(8)</span></a> <a class='psy_tag_calc_link' tagcount='2' style='font-size:11px; color:rgba(255, 111, 73, 1)' href='./search/label/joomshopping.html'>joomshopping<span>&nbsp;(2)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/php.html'>php<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/plug-in_development.html'>plug-in development<span>&nbsp;(4)</span></a>  <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/shnodoubles.html'>shnodoubles<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/tiddlyWiki.html'>tiddlyWiki<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/ubuntu.html'>ubuntu<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/zygo_profile.html'>zygo_profile<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/друзья.html'>друзья<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/разработки.html'>разработки<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/санскрит.html'>санскрит<span>&nbsp;(1)</span></a> </div>
+ 
+<h5>Меню</h5>
+<ul class="psy_right_menu">
+<li><a href='./#blog' class='psy_noactive'>Главная</a></li>
+<li><a href='./section/Создание_собственного_отладчика_в_Eclipse.html' class='psy_noactive'>Создание собственного отладчика в Eclipse</a></li>
+<li><a href='./section/санскрит.html' class='psy_noactive'>Санскрит - немножко перевожу</a></li>
+<li><a href='./section/camino_latino.html' class='psy_noactive'>Camino Latino - истории о латинской америке</a></li>
+</ul>
+<h5>Архив</h5>
+<div class='psy_archive'>
+    <div class='psy_archive_elems' style='display:none'>
+            <span class='el_open'>&#9660;&#160;</span>
+            <span class='el_closed'>&#9658;&#160;</span>
+    </div>
+    <ul class='psy_archive_years'><li class='last_year' >
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-open'>&#9660;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2017</a><ul class='psy_archive_mons'><li class='last_month' >
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-open'>&#9660;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>03</a><ul class='psy_archive_days'><li><a href='./2017/03/eclipse-wizard-open-programmatically.html'>Вызов wizard'а в Eclipse по кнопке или по shortcut'y в меню</a></li><li><a href='./2017/03/eclipse-custom-project-nature-icons.html'>Eclipse: особые иконки в Project Explorer для проекта с определенной Nature</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>02</a><ul class='psy_archive_days'><li><a href='./2017/02/joomshopping-list-to-text-attribute.html'>Joomshopping - замена выпадающих списков с единственным элементом на текст в независимых атрибутах</a></li><li><a href='./2017/02/cke-joomla3-problem.html'>Фикс: проблема с CKE-редактором под Joomla 3</a></li><li><a href='./2017/02/zygo-profile-autoupdates-webcam.html'>Новый релиз Zygo Profile: автообновления, камера, поддержка Joomla 3.7</a></li><li><a href='./2017/02/Zygo-Joomshopping-Review-Captcha.html'>Zygo Joomshopping Review Captcha - капча KCaptcha для отзывов в интернет-магазине Joomshopping</a></li><li><a href='./2017/02/svetomaster_video.html'>Подарок от Евгения</a></li><li><a href='./2017/02/inno-recursive-file-copy-timestamps.html'>Inno - создание инсталлятора. Рекурсивное копирование файлов внешней директории, учитывая даты.</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>01</a><ul class='psy_archive_days'><li><a href='./2017/01/tiddlywiki-php7-last-backups-store.html'>TiddlyWiki: сохранение 10 последних резервных копий на сервере.</a></li></ul></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2016</a><ul class='psy_archive_mons'><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>11</a><ul class='psy_archive_days'><li><a href='./2016/11/zygoprofile-checkbox-checkboxes-html_88.html'>ZygoProfile: добавлены поля checkbox, checkboxes, html</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>10</a><ul class='psy_archive_days'><li><a href='./2016/10/zygoprofile.html'>ZygoProfile - назначение полей группам пользователей.</a></li><li><a href='./2016/10/shabdatra.html'>Санскрит -  запоминание глагольных форм</a></li></ul></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2015</a><ul class='psy_archive_mons'><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>10</a><ul class='psy_archive_days'><li><a href='./2015/10/joomla-3x-zygoprofile-hkmprofile.html'>Плагин расширенного профиля Joomla 3.x с поддержкой аватаров (обработка имиджей, обрезка миниатюр) - Zygo Profile</a></li><li><a href='./2015/10/eclipse-ivaluevariable-idynamicvariable.html'>Переменные в плагинах Eclipse. Интерфейсы IValueVariable и IDynamicVariable</a></li><li><a href='./2015/10/verbos-irregulares-android-kivy-python.html'>Verbos irregulares - приложение для android для запоминания неправильных испанских глаголов.</a></li><li><a href='./2015/10/eclipse-ubuntu-linux.html'>Открыть ресурс в файловом менеджере - плагин для Eclipse под Ubuntu Linux.</a></li></li></ul></li></ul></div>
+
+                      </div>
+                    </div>
+                    <div id="psytronica_right_column_inner_after"></div>
+                </div>
+
+            </div>
+          	<div class="cleaner"></div>
+        </div>
+        <div id="psy_after_main"></div>
+        
+    </div>
+</div>
+
+<div class="cleaner"></div>
+
+
+
+<div id="psytronica_cr_bar_wrapper">
+	<div id="psytronica_cr_bar">
+    	
+© Psytronica.ru. Блог существа SherZa. 2015-2017
+
+        <a href="#top" class="to_anchor">Наверх</a>
+    </div>
+</div>
+
+
+<div id="dsq-count-scr-wrapper"></div>
+
+
+
+  
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter33338883 = new Ya.Metrika({
+                    id:33338883,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+  });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/33338883" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<script>
+  $(document).ready(function(){
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-91608488-1', 'auto');
+  ga('send', 'pageview');
+  });
+</script>
+
+</div>  
+ <style>
+   body{
+   	background: #2d261a;
+   }
+   body #psy_body_inner{
+		opacity:1;
+    } 
+  </style> 
+</body>
+</html>
+

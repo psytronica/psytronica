@@ -1,0 +1,393 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <base href="../../" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Web-разработка, PHP, Javascript, jQuery, Joomla, inno" />
+    <meta name="rights" content="teafortwo.ru" />
+    <meta name="description" content="разработка плагинов для Eclipse, Web-разработка, разработка расширений для joomla, программные разработки для изучения иностранных языков" />
+    <meta name="generator" content="Psytronica.ru" />
+    <meta content='IE=edge' http-equiv='X-UA-Compatible'/>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+	<meta name="yandex-verification" content="70dcadaa2851af41" />
+	<link href="./yinyang.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+
+    <title>Psytronica.ru - Web-разработка, инстранные языки, Eclipse и разные разности - inno</title>
+    <link rel="stylesheet" href="./css/psytronica1.css" type="text/css" media="screen" /> 
+    <script src="./js/psytronica2.js" type="text/javascript"></script>
+
+
+
+
+</head>
+<body id='psy_body_search_label_inno' onload="setBodyWidth();">
+<div id="psy_body_inner">
+
+<div id="psytronica_menu_wrapper">
+    <div id="psytronica_menu" class="ddsmoothmenu">
+
+
+        <ul>
+            <li><a href='./index.html' class='psy_noactive'>Главная</a></li>
+            <li><a href='./search/label/разработки.html' class='psy_noactive'>Мои разработки</a>
+            </li>
+          <li><a href='./me.html' class='psy_noactive'>Контакты</a></li>
+        </ul>
+
+
+
+	<div id="psytronica_search" class='psy_search_div'>
+		  <input type="text" id='psy_search'  title="keyword" placeholder="Поиск..."/>
+		  <div id='psy_search_results'></div>
+	</div>
+
+        <br style="clear: left" />
+    </div> <!-- end of psytronica_menu -->
+</div> <!-- end of psytronica_menu_wrapper -->
+
+
+<div id="psytronica_header_wrapper" class="psytronica_header_other">
+    <div id="psytronica_header" class="header_home">
+        
+<div id="psytronica_sitetitle_bar">
+    <div id="site_title"><h1><a href='./index.html' class='psy_noactive'>Psytronica</a></h1></div>
+
+    <div id="mid_title">
+        Web-разработка, иностранные языки, Eclipse  и разные разности
+    </div>
+    <div class="cleaner"></div>
+</div>
+
+        
+
+    </div> <!-- end of header -->
+</div> <!-- end of header_wrapper -->
+
+
+<div id="psytronica_after_header">
+
+            <h3><a href='./2015/10/joomla-3x-zygoprofile-hkmprofile.html' class='psy_noactive'>Zygo Profile</a></h3>
+            <h3><a href='./2016/10/shabdatra.html' class='psy_noactive'>Санскрит - словоформы</a></h3>
+            <h3><a href='./2015/10/verbos-irregulares-android-kivy-python.html' class='psy_noactive'>Verbos Irregulares</a></h3>
+
+</div>
+
+
+
+
+
+
+
+<a name="blog"></a>
+
+<div id="psytronica_main_wrapper">
+
+    <div id="psytronica_main_inner">
+        <div id="psytronica_main">
+            <div id="psytronica_content_area">
+
+                
+<h3 class="psy_content_head psy_content_head_tag">Inno</h3>
+ 
+<div id="psytronica_blog">
+
+<div class="psytronica_post even  psy_post_tags">
+    <h2><a href="./2017/02/inno-recursive-file-copy-timestamps.html">Inno - создание инсталлятора. Рекурсивное копирование файлов внешней директории, учитывая даты.</a></h2>
+
+    <div class="date"><div class='psy_page_date'>02.02.2017</div></div>
+
+    <div class="psytronica_post_content" >
+        
+<img align="left" src="./images/inno/inno_logo.png" class="imgplain">У меня появилась задачка - сделать инсталлятор для программы Windows, причем в качестве основы взять один из свободно распространяемых GUI-инсталляторов. Инсталлятор мой должен был выполнять не совсем обычный функционал - копировать файлы из уже существующих директорий, вызывать некоторые другие программы на разных этапах установки, даже делать несложные расчеты. Пересмотрела я много чего и поняла, что по большей части существует 3 группы инсталляторов: 
+<ul>
+<li>развесистые монстры, которые могут как джинн выполнить почти любую, даже самую замысловатую прихоть</li> 
+<li>простые и довольно ограниченные в функционале заготовки под типовые задачи</li>
+<li>инсталляторы на базе скриптов</li>
+</ul>
+Что касается первых - искать среди них свободные и бесплатные явно не приходится. Вторые не подходили под мою не совсем тривиальную задачку. Среди третьей группы лидирует NSIS, вещь грандиозная, можно сделать что угодно, правда он полностью базируется на скриптах. Имеется плагин под Eclipse, который позволяет в конструкторе форм создавать формы страниц инсталлятора, поддерживается подсветка синтаксиса и другие полезности.
+
+<a href="./images/inno/inno_setup.png" class="psy_img_up" title="Inno - IDE">
+<img align="right" src="./images/inno/inno_setup.png" style="width:250px; margin-left:20px; margin-top:10px; margin-bottom:10px;"></a>
+<br /><br />
+В результате я остановилась на вполне удачном варианте - <b>Inno</b>. При помощи Wizard генерируется код заготовки под инсталлятор, потом есть возможность дополнять и менять этот код. Пишется этот код на паскале.
+<br /><br />
+А вот и задачка, с которой я столкнулась: по завершению инсталляции скопировать директорию, не включенную в инсталлятор, при этом заменяя файлы, сравнивая их по timestamp'ам. 
+Откуда копировать директорию и куда - указывается во время установки.
+
+<br /><br />
+Вначале я сделала попытку:<br />
+<span class="zecode">Source: "{code:GetFromDir}\*.*"; DestDir: "{code:GetToDir}"; Flags: comparetimestamp recursesubdirs;</span>
+<br />
+К желаемому результату это не привело. Скрипт вываливался с ошибкой. Как я потом поняла, Source директория определяется во время компиляции инсталлятора, поэтому секция code еще не выполняется
+<br /><br />
+Добавление флажка <b>'external'</b> не дало желаемого результата, поскольку, хоть при наличии этого влажка Source директория определяется во время выполнения кода, тем не менее, это происходит раньше, чем я получаю значение из соотвествующего поля инсталлятора.
+<br /><br />
+В результате, через некоторое время после чтения документации и общения с поисковыми системами у меня получилось следующее:
+<br /><br />
+
+<!-- HTML generated using hilite.me --><div style="background: #272822; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">function</span> <span style="color: #a6e22e">CmpFileTimes</span><span style="color: #f8f8f2">(Source</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">Dest</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">TFileTime)</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">Boolean</span><span style="color: #f92672">;</span>
+<span style="color: #66d9ef">begin</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">Source</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">dwHighDateTime</span> <span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">Dest</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">dwHighDateTime</span> <span style="color: #66d9ef">then</span>
+
+       <span style="color: #f8f8f2">Result</span> <span style="color: #f92672">:=</span> <span style="color: #66d9ef">True</span>
+
+  <span style="color: #66d9ef">else</span> <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(Source</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">dwHighDateTime</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Dest</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">dwHighDateTime)</span> <span style="color: #66d9ef">and</span> 
+          <span style="color: #f8f8f2">(Source</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">dwLowDateTime</span> <span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">Dest</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">dwLowDateTime)</span> <span style="color: #66d9ef">then</span>
+
+       <span style="color: #f8f8f2">Result</span> <span style="color: #f92672">:=</span> <span style="color: #66d9ef">True</span>
+  <span style="color: #66d9ef">else</span> 
+       <span style="color: #f8f8f2">Result</span> <span style="color: #f92672">:=</span> <span style="color: #66d9ef">False</span>
+
+<span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+
+<span style="color: #66d9ef">procedure</span> <span style="color: #a6e22e">DirectoryCopy</span><span style="color: #f8f8f2">(SourcePath</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">DestPath</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">string</span><span style="color: #f8f8f2">)</span><span style="color: #f92672">;</span>
+<span style="color: #66d9ef">var</span>
+  <span style="color: #f8f8f2">FindRec</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">TFindRec</span><span style="color: #f92672">;</span>
+  <span style="color: #f8f8f2">SourceFilePath</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">string</span><span style="color: #f92672">;</span>
+  <span style="color: #f8f8f2">DestFilePath</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">string</span><span style="color: #f92672">;</span>
+
+  <span style="color: #f8f8f2">SourceLastWriteTime</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">TFileTime</span><span style="color: #f92672">;</span>
+  <span style="color: #f8f8f2">DestLastWriteTime</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">TFileTime</span><span style="color: #f92672">;</span>
+
+  <span style="color: #f8f8f2">DestFindRec</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">TFindRec</span><span style="color: #f92672">;</span>
+
+<span style="color: #66d9ef">begin</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">FindFirst(SourcePath</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&#39;\*&#39;</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">FindRec)</span> <span style="color: #66d9ef">then</span>
+  <span style="color: #66d9ef">begin</span>
+    <span style="color: #66d9ef">try</span>
+      <span style="color: #66d9ef">repeat</span>
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(FindRec</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Name</span> <span style="color: #f92672">&lt;&gt;</span> <span style="color: #e6db74">&#39;.&#39;</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">and</span> <span style="color: #f8f8f2">(FindRec</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Name</span> <span style="color: #f92672">&lt;&gt;</span> <span style="color: #e6db74">&#39;..&#39;</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">then</span>
+        <span style="color: #66d9ef">begin</span>
+          <span style="color: #f8f8f2">SourceFilePath</span> <span style="color: #f92672">:=</span> <span style="color: #f8f8f2">SourcePath</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&#39;\&#39;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">FindRec</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Name</span><span style="color: #f92672">;</span>
+          <span style="color: #f8f8f2">DestFilePath</span> <span style="color: #f92672">:=</span> <span style="color: #f8f8f2">DestPath</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&#39;\&#39;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">FindRec</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Name</span><span style="color: #f92672">;</span>
+          <span style="color: #f8f8f2">SourceLastWriteTime</span> <span style="color: #f92672">:=</span> <span style="color: #f8f8f2">FindRec</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">LastWriteTime</span><span style="color: #f92672">;</span>
+
+          <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(FileExists(DestFilePath))</span><span style="color: #66d9ef">then</span>
+          <span style="color: #66d9ef">begin</span>
+               <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">FindFirst(DestFilePath</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">DestFindRec)</span> <span style="color: #66d9ef">then</span>
+               <span style="color: #66d9ef">begin</span>
+                  <span style="color: #f8f8f2">DestLastWriteTime</span> <span style="color: #f92672">:=</span> <span style="color: #f8f8f2">DestFindRec</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">LastWriteTime</span><span style="color: #f92672">;</span>
+               <span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+          <span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+
+          <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">FindRec</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Attributes</span> <span style="color: #66d9ef">and</span> <span style="color: #f8f8f2">FILE_ATTRIBUTE_DIRECTORY</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span> <span style="color: #66d9ef">then</span>
+          <span style="color: #66d9ef">begin</span>
+            <span style="color: #66d9ef">if</span> <span style="color: #66d9ef">not</span><span style="color: #f8f8f2">(FileExists(DestFilePath))</span> <span style="color: #66d9ef">or</span> <span style="color: #f8f8f2">CmpFileTimes(SourceLastWriteTime</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">DestLastWriteTime)</span>  <span style="color: #66d9ef">then</span> 
+            <span style="color: #66d9ef">begin</span>
+
+                <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">FileCopy(SourceFilePath</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">DestFilePath</span><span style="color: #f92672">,</span> <span style="color: #66d9ef">False</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">then</span>
+                <span style="color: #66d9ef">begin</span>
+                  <span style="color: #f8f8f2">Log(Format(</span><span style="color: #e6db74">&#39;Copied %s to %s&#39;</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">[SourceFilePath</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">DestFilePath]))</span><span style="color: #f92672">;</span>
+                <span style="color: #66d9ef">end</span>
+                  <span style="color: #66d9ef">else</span>
+                <span style="color: #66d9ef">begin</span>
+                  <span style="color: #f8f8f2">Log(Format(</span><span style="color: #e6db74">&#39;Failed to copy %s to %s&#39;</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">[SourceFilePath</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">DestFilePath]))</span><span style="color: #f92672">;</span>
+                <span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+
+            <span style="color: #66d9ef">end</span>
+                <span style="color: #66d9ef">else</span>
+            <span style="color: #66d9ef">begin</span>
+
+                 <span style="color: #f8f8f2">Log(Format(</span><span style="color: #e6db74">&#39;File: %s in actual state&#39;</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">[SourceFilePath]))</span><span style="color: #f92672">;</span>
+            <span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+          <span style="color: #66d9ef">end</span>
+            <span style="color: #66d9ef">else</span>
+          <span style="color: #66d9ef">begin</span>
+
+            <span style="color: #66d9ef">if</span> <span style="color: #66d9ef">not</span><span style="color: #f8f8f2">(DirExists(DestFilePath))</span><span style="color: #66d9ef">then</span> 
+            <span style="color: #66d9ef">begin</span>
+
+                <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">CreateDir(DestFilePath)</span> <span style="color: #66d9ef">then</span>
+                <span style="color: #66d9ef">begin</span>
+                  <span style="color: #f8f8f2">Log(Format(</span><span style="color: #e6db74">&#39;Created %s&#39;</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">[DestFilePath]))</span><span style="color: #f92672">;</span>
+                  <span style="color: #f8f8f2">DirectoryCopy(SourceFilePath</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">DestFilePath)</span><span style="color: #f92672">;</span>
+                <span style="color: #66d9ef">end</span>
+                  <span style="color: #66d9ef">else</span>
+                <span style="color: #66d9ef">begin</span>
+                  <span style="color: #f8f8f2">Log(Format(</span><span style="color: #e6db74">&#39;Failed to create %s&#39;</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">[DestFilePath]))</span><span style="color: #f92672">;</span>
+                <span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+            <span style="color: #66d9ef">end</span>
+              <span style="color: #66d9ef">else</span>
+            <span style="color: #66d9ef">begin</span>
+                  <span style="color: #f8f8f2">Log(Format(</span><span style="color: #e6db74">&#39;Existed %s&#39;</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">[DestFilePath]))</span><span style="color: #f92672">;</span>
+                  <span style="color: #f8f8f2">DirectoryCopy(SourceFilePath</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">DestFilePath)</span><span style="color: #f92672">;</span>
+            <span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+          <span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+        <span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+      <span style="color: #66d9ef">until</span> <span style="color: #66d9ef">not</span> <span style="color: #f8f8f2">FindNext(FindRec)</span><span style="color: #f92672">;</span>
+    <span style="color: #66d9ef">finally</span>
+      <span style="color: #f8f8f2">FindClose(FindRec)</span><span style="color: #f92672">;</span>
+    <span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+  <span style="color: #66d9ef">end</span>
+    <span style="color: #66d9ef">else</span>
+  <span style="color: #66d9ef">begin</span>
+    <span style="color: #f8f8f2">Log(Format(</span><span style="color: #e6db74">&#39;Failed to list %s&#39;</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">[SourcePath]))</span><span style="color: #f92672">;</span>
+  <span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+<span style="color: #66d9ef">end</span><span style="color: #f92672">;</span>
+</pre></div>
+
+
+    </div>
+    
+    <div class='psy_page_tags'><ul class='tags'><li><a href='./search/label/inno.html'>inno <span>1</span></a></li> </ul></div>
+ 
+
+    <div class="cleaner"></div>
+</div>
+<div class="psytronica_post_intro"></div>
+
+</div>
+
+
+            </div>
+            <div id="psytronica_right_column">
+                <div id="psytronica_right_column_inset">
+                    <div id="psytronica_right_column_inner">
+                      <div id="psytronica_right_column_innering">
+                        
+<h5>Облако тегов</h5>
+<div class='psy_tags2'><a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/cke.html'>cke<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/eclipse.html'>eclipse<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/filemanager.html'>filemanager<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/inno.html'>inno<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/jlnodoubles.html'>jlnodoubles<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='8' style='font-size:20px; color:rgba(255, 221, 173, 1)' href='./search/label/joomla.html'>joomla<span>&nbsp;(8)</span></a> <a class='psy_tag_calc_link' tagcount='2' style='font-size:11px; color:rgba(255, 111, 73, 1)' href='./search/label/joomshopping.html'>joomshopping<span>&nbsp;(2)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/php.html'>php<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/plug-in_development.html'>plug-in development<span>&nbsp;(4)</span></a>  <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/shnodoubles.html'>shnodoubles<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/tiddlyWiki.html'>tiddlyWiki<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/ubuntu.html'>ubuntu<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/zygo_profile.html'>zygo_profile<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/друзья.html'>друзья<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/разработки.html'>разработки<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/санскрит.html'>санскрит<span>&nbsp;(1)</span></a> </div>
+ 
+<h5>Меню</h5>
+<ul class="psy_right_menu">
+<li><a href='./#blog' class='psy_noactive'>Главная</a></li>
+<li><a href='./section/Создание_собственного_отладчика_в_Eclipse.html' class='psy_noactive'>Создание собственного отладчика в Eclipse</a></li>
+<li><a href='./section/санскрит.html' class='psy_noactive'>Санскрит - немножко перевожу</a></li>
+<li><a href='./section/camino_latino.html' class='psy_noactive'>Camino Latino - истории о латинской америке</a></li>
+</ul>
+<h5>Архив</h5>
+<div class='psy_archive'>
+    <div class='psy_archive_elems' style='display:none'>
+            <span class='el_open'>&#9660;&#160;</span>
+            <span class='el_closed'>&#9658;&#160;</span>
+    </div>
+    <ul class='psy_archive_years'><li class='last_year' >
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-open'>&#9660;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2017</a><ul class='psy_archive_mons'><li class='last_month' >
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-open'>&#9660;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>03</a><ul class='psy_archive_days'><li><a href='./2017/03/eclipse-wizard-open-programmatically.html'>Вызов wizard'а в Eclipse по кнопке или по shortcut'y в меню</a></li><li><a href='./2017/03/eclipse-custom-project-nature-icons.html'>Eclipse: особые иконки в Project Explorer для проекта с определенной Nature</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>02</a><ul class='psy_archive_days'><li><a href='./2017/02/joomshopping-list-to-text-attribute.html'>Joomshopping - замена выпадающих списков с единственным элементом на текст в независимых атрибутах</a></li><li><a href='./2017/02/cke-joomla3-problem.html'>Фикс: проблема с CKE-редактором под Joomla 3</a></li><li><a href='./2017/02/zygo-profile-autoupdates-webcam.html'>Новый релиз Zygo Profile: автообновления, камера, поддержка Joomla 3.7</a></li><li><a href='./2017/02/Zygo-Joomshopping-Review-Captcha.html'>Zygo Joomshopping Review Captcha - капча KCaptcha для отзывов в интернет-магазине Joomshopping</a></li><li><a href='./2017/02/svetomaster_video.html'>Подарок от Евгения</a></li><li><a href='./2017/02/inno-recursive-file-copy-timestamps.html'>Inno - создание инсталлятора. Рекурсивное копирование файлов внешней директории, учитывая даты.</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>01</a><ul class='psy_archive_days'><li><a href='./2017/01/tiddlywiki-php7-last-backups-store.html'>TiddlyWiki: сохранение 10 последних резервных копий на сервере.</a></li></ul></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2016</a><ul class='psy_archive_mons'><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>11</a><ul class='psy_archive_days'><li><a href='./2016/11/zygoprofile-checkbox-checkboxes-html_88.html'>ZygoProfile: добавлены поля checkbox, checkboxes, html</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>10</a><ul class='psy_archive_days'><li><a href='./2016/10/zygoprofile.html'>ZygoProfile - назначение полей группам пользователей.</a></li><li><a href='./2016/10/shabdatra.html'>Санскрит -  запоминание глагольных форм</a></li></ul></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2015</a><ul class='psy_archive_mons'><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>10</a><ul class='psy_archive_days'><li><a href='./2015/10/joomla-3x-zygoprofile-hkmprofile.html'>Плагин расширенного профиля Joomla 3.x с поддержкой аватаров (обработка имиджей, обрезка миниатюр) - Zygo Profile</a></li><li><a href='./2015/10/eclipse-ivaluevariable-idynamicvariable.html'>Переменные в плагинах Eclipse. Интерфейсы IValueVariable и IDynamicVariable</a></li><li><a href='./2015/10/verbos-irregulares-android-kivy-python.html'>Verbos irregulares - приложение для android для запоминания неправильных испанских глаголов.</a></li><li><a href='./2015/10/eclipse-ubuntu-linux.html'>Открыть ресурс в файловом менеджере - плагин для Eclipse под Ubuntu Linux.</a></li></li></ul></li></ul></div>
+
+                      </div>
+                    </div>
+                    <div id="psytronica_right_column_inner_after"></div>
+                </div>
+
+            </div>
+          	<div class="cleaner"></div>
+        </div>
+        <div id="psy_after_main"></div>
+        
+    </div>
+</div>
+
+<div class="cleaner"></div>
+
+
+
+<div id="psytronica_cr_bar_wrapper">
+	<div id="psytronica_cr_bar">
+    	
+© Psytronica.ru. Блог существа SherZa. 2015-2017
+
+        <a href="#top" class="to_anchor">Наверх</a>
+    </div>
+</div>
+
+
+<div id="dsq-count-scr-wrapper"></div>
+
+
+
+  
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter33338883 = new Ya.Metrika({
+                    id:33338883,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+  });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/33338883" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<script>
+  $(document).ready(function(){
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-91608488-1', 'auto');
+  ga('send', 'pageview');
+  });
+</script>
+
+</div>  
+ <style>
+   body{
+   	background: #2d261a;
+   }
+   body #psy_body_inner{
+		opacity:1;
+    } 
+  </style> 
+</body>
+</html>
+

@@ -1,0 +1,628 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <base href="../../" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Web-разработка, PHP, Javascript, jQuery, Joomla" />
+    <meta name="rights" content="teafortwo.ru" />
+    <meta name="description" content="IValueVariable - переменные, которым присваивается какое-то конкретное значение и которые не принимают на вход аргументы.&nbsp;Чтобы" />
+    <meta name="generator" content="Psytronica.ru" />
+    <meta content='IE=edge' http-equiv='X-UA-Compatible'/>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+	<meta name="yandex-verification" content="70dcadaa2851af41" />
+	<link href="./yinyang.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+
+    <title>Psytronica.ru - Web-разработка, инстранные языки, Eclipse и разные разности</title>
+    <link rel="stylesheet" href="./css/psytronica1.css" type="text/css" media="screen" /> 
+    <script src="./js/psytronica2.js" type="text/javascript"></script>
+
+
+
+
+</head>
+<body id='psy_body_2015_10_eclipse-ivaluevariable-idynamicvariable' onload="setBodyWidth();">
+<div id="psy_body_inner">
+
+<div id="psytronica_menu_wrapper">
+    <div id="psytronica_menu" class="ddsmoothmenu">
+
+
+        <ul>
+            <li><a href='./index.html' class='psy_noactive'>Главная</a></li>
+            <li><a href='./search/label/разработки.html' class='psy_noactive'>Мои разработки</a>
+            </li>
+          <li><a href='./me.html' class='psy_noactive'>Контакты</a></li>
+        </ul>
+
+
+
+	<div id="psytronica_search" class='psy_search_div'>
+		  <input type="text" id='psy_search'  title="keyword" placeholder="Поиск..."/>
+		  <div id='psy_search_results'></div>
+	</div>
+
+        <br style="clear: left" />
+    </div> <!-- end of psytronica_menu -->
+</div> <!-- end of psytronica_menu_wrapper -->
+
+
+<div id="psytronica_header_wrapper" class="psytronica_header_other">
+    <div id="psytronica_header" class="header_home">
+        
+<div id="psytronica_sitetitle_bar">
+    <div id="site_title"><h1><a href='./index.html' class='psy_noactive'>Psytronica</a></h1></div>
+
+    <div id="mid_title">
+        Web-разработка, иностранные языки, Eclipse  и разные разности
+    </div>
+    <div class="cleaner"></div>
+</div>
+
+        
+
+    </div> <!-- end of header -->
+</div> <!-- end of header_wrapper -->
+
+
+<div id="psytronica_after_header">
+
+            <h3><a href='./2015/10/joomla-3x-zygoprofile-hkmprofile.html' class='psy_noactive'>Zygo Profile</a></h3>
+            <h3><a href='./2016/10/shabdatra.html' class='psy_noactive'>Санскрит - словоформы</a></h3>
+            <h3><a href='./2015/10/verbos-irregulares-android-kivy-python.html' class='psy_noactive'>Verbos Irregulares</a></h3>
+
+</div>
+
+
+
+
+
+
+
+<a name="blog"></a>
+
+<div id="psytronica_main_wrapper">
+
+    <div id="psytronica_main_inner">
+        <div id="psytronica_main">
+            <div id="psytronica_content_area">
+
+                 
+<div id="psytronica_blog">
+
+<div class="psytronica_post psy_post_post">
+    <h2>Переменные в плагинах Eclipse. Интерфейсы IValueVariable и IDynamicVariable</h2>
+
+    <div class="date"><div class='psy_page_date'>22.10.2015</div></div>
+
+    <div class="psytronica_post_content" >
+        
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<b>IValueVariable</b> - переменные, которым присваивается какое-то конкретное значение и которые не принимают на вход аргументы.<br />
+<br />
+&nbsp;Чтобы создать такие переменные, можно указать в <b>plugin.xml</b> точку расширения "<b>org.eclipse.core.variables.valueVariables</b>":
+таким образом, заданы 2 переменные <b>coffeevar</b> и <b>othervar
+
+</b><!-- HTML generated using hilite.me --><br />
+<br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f92672;">&lt;extension</span>
+     <span style="color: #a6e22e;">point=</span><span style="color: #e6db74;">"org.eclipse.core.variables.valueVariables"</span><span style="color: #f92672;">&gt;</span>
+  <span style="color: #f92672;">&lt;variable</span>
+        <span style="color: #a6e22e;">initialValue=</span><span style="color: #e6db74;">"arabica"</span>
+        <span style="color: #a6e22e;">name=</span><span style="color: #e6db74;">"coffeevar"</span>
+        <span style="color: #a6e22e;">description=</span><span style="color: #e6db74;">"Some sort of coffee"</span><span style="color: #f92672;">&gt;</span>
+  <span style="color: #f92672;">&lt;/variable&gt;</span>
+  <span style="color: #f92672;">&lt;variable</span>
+        <span style="color: #a6e22e;">initialValue=</span><span style="color: #e6db74;">"другое значение"</span>
+        <span style="color: #a6e22e;">name=</span><span style="color: #e6db74;">"othervar"</span>
+        <span style="color: #a6e22e;">description=</span><span style="color: #e6db74;">"описание другой переменной"</span><span style="color: #f92672;">&gt;</span>
+  <span style="color: #f92672;">&lt;/variable&gt;</span>      
+<span style="color: #f92672;">&lt;/extension&gt;</span>
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+(Аналогично, можно на вкладке "<b>Extensions</b>" при открытии plugin.xml добавить указанную точку расширения и добавить 2 указанные переменные)<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a class="psy_img_up" title="Переменные в плагинах Eclipse. Интерфейсы IValueVariable и IDynamicVariable" href="./images/eclipse/plugin/eclipse-variables.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="152" src="./images/eclipse/plugin/eclipse-variables-min.png" width="320" /></a></div>
+<br />
+<br />
+<br />
+В <b>MANIFEST.MF</b> необходимо добавить  org.eclipse.core.variables в <b>Require-Bundle&nbsp;</b><br />
+Получить значения переменных из кода можно при помощи интерфейса <b>IStringVariableManager</b>:
+
+<!-- HTML generated using hilite.me --><br />
+<br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;">1</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f8f8f2;">IValueVariable</span> <span style="color: #f8f8f2;">varVal</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">VariablesPlugin</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getDefault</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getStringVariableManager</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getValueVariable</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">myStr</span><span style="color: #f92672;">);</span>
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+где myStr - значение поля "<b>name</b>" тега variable
+
+Пример доступа к значениям переменных:
+
+<!-- HTML generated using hilite.me --><br />
+<br />
+</div>
+<!--more--><div dir="ltr" style="text-align: left;" trbidi="on"><br />
+<br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f8f8f2;">String</span><span style="color: #f92672;">[]</span> <span style="color: #f8f8f2;">strArray</span> <span style="color: #f92672;">=</span> <span style="color: #f92672;">{</span> <span style="color: #e6db74;">"coffeevar"</span><span style="color: #f92672;">,</span> <span style="color: #e6db74;">"othervar"</span><span style="color: #f92672;">,</span> <span style="color: #e6db74;">"nonexistent"</span> <span style="color: #f92672;">};</span>
+
+<span style="color: #66d9ef;">for</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">myStr</span> <span style="color: #f92672;">:</span> <span style="color: #f8f8f2;">strArray</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>
+ <span style="color: #f8f8f2;">IValueVariable</span> <span style="color: #f8f8f2;">varVal</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">VariablesPlugin</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getDefault</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getStringVariableManager</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getValueVariable</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">myStr</span><span style="color: #f92672;">);</span>
+ <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">varVal</span> <span style="color: #f92672;">==</span> <span style="color: #66d9ef;">null</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>
+  <span style="color: #f8f8f2;">System</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">out</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">format</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Переменная %s не существует\n"</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">myStr</span><span style="color: #f92672;">);</span>
+ <span style="color: #f92672;">}</span><span style="color: #66d9ef;">else</span><span style="color: #f92672;">{</span>
+  <span style="color: #f8f8f2;">System</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">out</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">format</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Переменная %s = %s\n"</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">myStr</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">varVal</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getValue</span><span style="color: #f92672;">());</span>    
+ <span style="color: #f92672;">}</span> 
+<span style="color: #f92672;">}</span> 
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+В результате получается:<br />
+<br />
+<div class="zecode">
+Переменная coffeevar = arabica<br />
+Переменная othervar = другое значение<br />
+Переменная nonexistent не существует</div>
+<br />
+&nbsp;Значения переменных можно не только запрашивать, но и изменять. Например:
+
+<!-- HTML generated using hilite.me --><br />
+<br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;">1
+2</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f8f8f2;">IValueVariable</span> <span style="color: #f8f8f2;">coffeeVal</span> <span style="color: #f92672;">=</span><span style="color: #f8f8f2;">VariablesPlugin</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getDefault</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getStringVariableManager</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getValueVariable</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"coffeevar"</span><span style="color: #f92672;">);</span>
+<span style="color: #f8f8f2;">coffeeVal</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">setValue</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Другой кофе"</span><span style="color: #f92672;">);</span>
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+В другом месте кода:
+
+<!-- HTML generated using hilite.me --><br />
+<br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;">1
+2</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f8f8f2;">IValueVariable</span> <span style="color: #f8f8f2;">coffeeVal</span> <span style="color: #f92672;">=</span><span style="color: #f8f8f2;">VariablesPlugin</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getDefault</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getStringVariableManager</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getValueVariable</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"coffeevar"</span><span style="color: #f92672;">);</span>
+<span style="color: #f8f8f2;">System</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">out</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">format</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Новое значение переменной 'coffeevar': %s\n"</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">coffeeVal</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getValue</span><span style="color: #f92672;">());</span> 
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+В результате получается:<br />
+<br />
+Новое значение переменной 'coffeevar': Другой кофе<br />
+<br />
+Так же помимо интерфейса IValueVariable существует интерфейс IDynamicVariable
+
+IDynamicVariable - переменные, значения которых вычисляются "на лету" во время обращения  к  "resolver".<br />
+<br />
+Динамические переменные могут принимать аргументы.
+
+Пример создания точки расширения "org.eclipse.core.variables.dynamicVariables":<br />
+<br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre>
+</td><td><pre style="line-height: 125%; margin: 0;">  <span style="color: #f92672;">&lt;extension</span> <span style="color: #a6e22e;">point=</span><span style="color: #e6db74;">"org.eclipse.core.variables.dynamicVariables"</span><span style="color: #f92672;">&gt;</span>
+    <span style="color: #f92672;">&lt;variable</span> 
+       <span style="color: #a6e22e;">name=</span><span style="color: #e6db74;">"cona_time"</span>
+       <span style="color: #a6e22e;">resolver=</span><span style="color: #e6db74;">"com.zygo.CoffeeTimeResolver"</span>
+       <span style="color: #a6e22e;">description=</span><span style="color: #e6db74;">"Время для кофе кона"</span>
+       <span style="color: #a6e22e;">supportsArgument=</span><span style="color: #e6db74;">"true"</span><span style="color: #f92672;">&gt;</span>
+    <span style="color: #f92672;">&lt;/variable&gt;</span>
+    <span style="color: #f92672;">&lt;variable</span> 
+       <span style="color: #a6e22e;">name=</span><span style="color: #e6db74;">"arabica_time"</span>
+       <span style="color: #a6e22e;">resolver=</span><span style="color: #e6db74;">"com.zygo.CoffeeTimeResolver"</span>
+       <span style="color: #a6e22e;">description=</span><span style="color: #e6db74;">"Время для кофе арабика"</span>
+       <span style="color: #a6e22e;">supportsArgument=</span><span style="color: #e6db74;">"false"</span><span style="color: #f92672;">&gt;</span>
+    <span style="color: #f92672;">&lt;/variable&gt;</span>    
+  <span style="color: #f92672;">&lt;/extension&gt;</span>
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+В данном примере создается 2 динамических переменных - cona_time, с поддержкой аргументов и arabica_time - без поддержки<br />
+<br />
+Значение resolver - класс CoffeeTimeResolver, который осуществляет интерфейс <b>IDynamicVariableResolver</b>.
+Пример такого класса:
+
+
+<!-- HTML generated using hilite.me --><br />
+<br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f92672;">package</span> <span style="color: #f8f8f2;">com</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">zygo</span><span style="color: #f92672;">;</span>
+
+<span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">java.util.Date</span><span style="color: #f92672;">;</span>
+<span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">java.text.DateFormat</span><span style="color: #f92672;">;</span>
+<span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">java.text.SimpleDateFormat</span><span style="color: #f92672;">;</span>
+
+<span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">org.eclipse.core.variables.IDynamicVariable</span><span style="color: #f92672;">;</span>
+<span style="color: #f92672;">import</span> <span style="color: #f8f8f2;">org.eclipse.core.variables.IDynamicVariableResolver</span><span style="color: #f92672;">;</span>
+
+<span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">class</span> <span style="color: #a6e22e;">CoffeeTimeResolver</span> <span style="color: #66d9ef;">implements</span> <span style="color: #f8f8f2;">IDynamicVariableResolver</span> <span style="color: #f92672;">{</span>
+
+ <span style="color: #75715e;">// Для поддержки argument необходимо условие supportsArgument = true</span>
+
+ <span style="color: #66d9ef;">public</span> <span style="color: #f8f8f2;">String</span> <span style="color: #a6e22e;">resolveValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IDynamicVariable</span> <span style="color: #f8f8f2;">variable</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">argument</span><span style="color: #f92672;">){</span>
+  
+  <span style="color: #f8f8f2;">DateFormat</span> <span style="color: #f8f8f2;">dateFormat</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">SimpleDateFormat</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"yyyy/MM/dd HH:mm:ss"</span><span style="color: #f92672;">);</span>
+  <span style="color: #f8f8f2;">Date</span> <span style="color: #f8f8f2;">date</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">Date</span><span style="color: #f92672;">();</span>
+  
+  <span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">selTime</span> <span style="color: #f92672;">=</span> <span style="color: #e6db74;">""</span><span style="color: #f92672;">;</span>
+  
+  <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">variable</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getName</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">equals</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"cona_time"</span><span style="color: #f92672;">)){</span>
+
+   <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">argument</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">equals</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"first"</span><span style="color: #f92672;">)){</span>
+
+    <span style="color: #f8f8f2;">selTime</span> <span style="color: #f92672;">+=</span> <span style="color: #e6db74;">"Суббота: "</span><span style="color: #f92672;">;</span>
+
+   <span style="color: #f92672;">}</span><span style="color: #66d9ef;">else</span> <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">argument</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">equals</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"second"</span><span style="color: #f92672;">)){</span>
+
+    <span style="color: #f8f8f2;">selTime</span> <span style="color: #f92672;">+=</span> <span style="color: #e6db74;">"Воскресение: "</span><span style="color: #f92672;">;</span>
+   <span style="color: #f92672;">}</span><span style="color: #66d9ef;">else</span><span style="color: #f92672;">{</span>
+    <span style="color: #f8f8f2;">selTime</span> <span style="color: #f92672;">+=</span> <span style="color: #e6db74;">"Понедельник: "</span><span style="color: #f92672;">;</span>
+   <span style="color: #f92672;">}</span>
+   
+  <span style="color: #f92672;">}</span><span style="color: #66d9ef;">else</span> <span style="color: #66d9ef;">if</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">variable</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getName</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">equals</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"arabica_time"</span><span style="color: #f92672;">)){</span>
+
+   <span style="color: #f8f8f2;">selTime</span> <span style="color: #f92672;">+=</span> <span style="color: #e6db74;">"Пятница: "</span><span style="color: #f92672;">;</span>
+  <span style="color: #f92672;">}</span><span style="color: #66d9ef;">else</span><span style="color: #f92672;">{</span>
+   <span style="color: #75715e;">// @Todo</span>
+  <span style="color: #f92672;">}</span>
+  
+  <span style="color: #66d9ef;">return</span> <span style="color: #f8f8f2;">selTime</span> <span style="color: #f92672;">+</span> <span style="color: #e6db74;">" ("</span> <span style="color: #f92672;">+</span> <span style="color: #f8f8f2;">dateFormat</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">format</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">date</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">+</span> <span style="color: #e6db74;">")"</span><span style="color: #f92672;">;</span>
+  
+ <span style="color: #f92672;">}</span>
+ 
+<span style="color: #f92672;">}</span>
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+Пример доступа к значениям переменных dynamicVariables из кода:
+
+<!-- HTML generated using hilite.me --><br />
+<br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f8f8f2;">IDynamicVariable</span> <span style="color: #f8f8f2;">cona_time</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">VariablesPlugin</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getDefault</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getStringVariableManager</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getDynamicVariable</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"cona_time"</span><span style="color: #f92672;">);</span>
+
+<span style="color: #f8f8f2;">IDynamicVariable</span> <span style="color: #f8f8f2;">arabica_time</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">VariablesPlugin</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getDefault</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getStringVariableManager</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getDynamicVariable</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"arabica_time"</span><span style="color: #f92672;">);</span>
+<span style="color: #66d9ef;">try</span> <span style="color: #f92672;">{</span>
+
+ <span style="color: #f8f8f2;">System</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">out</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">format</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Первая чашка кофе коны: %s\n"</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">cona_time</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getValue</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"first"</span><span style="color: #f92672;">));</span>
+ <span style="color: #f8f8f2;">System</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">out</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">format</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Вторая чашка кофе коны: %s\n"</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">cona_time</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getValue</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"second"</span><span style="color: #f92672;">));</span>
+ 
+ <span style="color: #f8f8f2;">System</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">out</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">format</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Чашка кофе арабика: %s\n"</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">arabica_time</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getValue</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">null</span><span style="color: #f92672;">));</span>
+
+<span style="color: #f92672;">}</span> <span style="color: #66d9ef;">catch</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">CoreException</span> <span style="color: #f8f8f2;">e</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>
+
+ <span style="color: #f8f8f2;">e</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">printStackTrace</span><span style="color: #f92672;">();</span>
+<span style="color: #f92672;">}</span>
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+В результате получается:<br />
+<br />
+<div class="zecode">
+Первая чашка кофе коны: Суббота:  (2015/10/22 19:18:26)<br />
+Вторая чашка кофе коны: Воскресение:  (2015/10/22 19:18:26)<br />
+Чашка кофе арабика: Пятница:  (2015/10/22 19:18:26)</div>
+<br />
+Каждый раз, независимо от передаваемого параметра (argument), будет возвращаться новое значение переменной (в моем случае - в зависимости от текущего времени)<br />
+<br />
+P.S:<br />
+<br />
+Если я попробую задать не arabica_time.getValue(null), а arabica_time.getValue("first"), то получу ошибку:<br />
+<br />
+<span style="color: red;">org.eclipse.core.runtime.CoreException: Unsupported argument first specified for variable arabica_time&nbsp;</span><br />
+<br />
+поскольку в настройках переменной arabica_time указано <b>supportsArgument="false"</b></div>
+
+
+    </div>
+
+    <div class='psy_page_tags'><ul class='tags'><li class='blue' ><a href='./search/label/eclipse.html'>eclipse <span>4</span></a></li> <li><a href='./search/label/plug-in_development.html'>plug-in development <span>4</span></a></li> </ul></div>
+
+
+<div class="clearfix"></div>
+
+
+  
+
+<script type='text/javascript'>
+var disqus_shortname = 'psytronica-ru';
+var disqus_blogger_current_url = "./2015/10/eclipse-ivaluevariable-idynamicvariable.html";
+if (!disqus_blogger_current_url.length) {
+    disqus_blogger_current_url = "./2015/10/eclipse-ivaluevariable-idynamicvariable.html";
+}
+var disqus_blogger_homepage_url = "./";
+var disqus_blogger_canonical_homepage_url = "./";
+</script>
+<style type='text/css'>
+    #comments {display:none;}
+</style>
+
+<style type='text/css'>
+    .post-comment-link { visibility: hidden; }
+</style>
+
+
+
+
+    <div class="cleaner"></div>
+</div>
+
+</div>
+
+
+            </div>
+            <div id="psytronica_right_column">
+                <div id="psytronica_right_column_inset">
+                    <div id="psytronica_right_column_inner">
+                      <div id="psytronica_right_column_innering">
+                        
+<h5>Облако тегов</h5>
+<div class='psy_tags2'><a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/cke.html'>cke<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/eclipse.html'>eclipse<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/filemanager.html'>filemanager<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/inno.html'>inno<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/jlnodoubles.html'>jlnodoubles<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='8' style='font-size:20px; color:rgba(255, 221, 173, 1)' href='./search/label/joomla.html'>joomla<span>&nbsp;(8)</span></a> <a class='psy_tag_calc_link' tagcount='2' style='font-size:11px; color:rgba(255, 111, 73, 1)' href='./search/label/joomshopping.html'>joomshopping<span>&nbsp;(2)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/php.html'>php<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/plug-in_development.html'>plug-in development<span>&nbsp;(4)</span></a>  <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/shnodoubles.html'>shnodoubles<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/tiddlyWiki.html'>tiddlyWiki<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/ubuntu.html'>ubuntu<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/zygo_profile.html'>zygo_profile<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/друзья.html'>друзья<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/разработки.html'>разработки<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/санскрит.html'>санскрит<span>&nbsp;(1)</span></a> </div>
+ 
+<h5>Меню</h5>
+<ul class="psy_right_menu">
+<li><a href='./#blog' class='psy_noactive'>Главная</a></li>
+<li><a href='./section/Создание_собственного_отладчика_в_Eclipse.html' class='psy_noactive'>Создание собственного отладчика в Eclipse</a></li>
+<li><a href='./section/санскрит.html' class='psy_noactive'>Санскрит - немножко перевожу</a></li>
+<li><a href='./section/camino_latino.html' class='psy_noactive'>Camino Latino - истории о латинской америке</a></li>
+</ul>
+<h5>Архив</h5>
+<div class='psy_archive'>
+    <div class='psy_archive_elems' style='display:none'>
+            <span class='el_open'>&#9660;&#160;</span>
+            <span class='el_closed'>&#9658;&#160;</span>
+    </div>
+    <ul class='psy_archive_years'><li class='last_year' >
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-open'>&#9660;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2017</a><ul class='psy_archive_mons'><li class='last_month' >
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-open'>&#9660;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>03</a><ul class='psy_archive_days'><li><a href='./2017/03/eclipse-wizard-open-programmatically.html'>Вызов wizard'а в Eclipse по кнопке или по shortcut'y в меню</a></li><li><a href='./2017/03/eclipse-custom-project-nature-icons.html'>Eclipse: особые иконки в Project Explorer для проекта с определенной Nature</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>02</a><ul class='psy_archive_days'><li><a href='./2017/02/joomshopping-list-to-text-attribute.html'>Joomshopping - замена выпадающих списков с единственным элементом на текст в независимых атрибутах</a></li><li><a href='./2017/02/cke-joomla3-problem.html'>Фикс: проблема с CKE-редактором под Joomla 3</a></li><li><a href='./2017/02/zygo-profile-autoupdates-webcam.html'>Новый релиз Zygo Profile: автообновления, камера, поддержка Joomla 3.7</a></li><li><a href='./2017/02/Zygo-Joomshopping-Review-Captcha.html'>Zygo Joomshopping Review Captcha - капча KCaptcha для отзывов в интернет-магазине Joomshopping</a></li><li><a href='./2017/02/svetomaster_video.html'>Подарок от Евгения</a></li><li><a href='./2017/02/inno-recursive-file-copy-timestamps.html'>Inno - создание инсталлятора. Рекурсивное копирование файлов внешней директории, учитывая даты.</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>01</a><ul class='psy_archive_days'><li><a href='./2017/01/tiddlywiki-php7-last-backups-store.html'>TiddlyWiki: сохранение 10 последних резервных копий на сервере.</a></li></ul></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2016</a><ul class='psy_archive_mons'><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>11</a><ul class='psy_archive_days'><li><a href='./2016/11/zygoprofile-checkbox-checkboxes-html_88.html'>ZygoProfile: добавлены поля checkbox, checkboxes, html</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>10</a><ul class='psy_archive_days'><li><a href='./2016/10/zygoprofile.html'>ZygoProfile - назначение полей группам пользователей.</a></li><li><a href='./2016/10/shabdatra.html'>Санскрит -  запоминание глагольных форм</a></li></ul></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2015</a><ul class='psy_archive_mons'><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>10</a><ul class='psy_archive_days'><li><a href='./2015/10/joomla-3x-zygoprofile-hkmprofile.html'>Плагин расширенного профиля Joomla 3.x с поддержкой аватаров (обработка имиджей, обрезка миниатюр) - Zygo Profile</a></li><li><a href='./2015/10/eclipse-ivaluevariable-idynamicvariable.html'>Переменные в плагинах Eclipse. Интерфейсы IValueVariable и IDynamicVariable</a></li><li><a href='./2015/10/verbos-irregulares-android-kivy-python.html'>Verbos irregulares - приложение для android для запоминания неправильных испанских глаголов.</a></li><li><a href='./2015/10/eclipse-ubuntu-linux.html'>Открыть ресурс в файловом менеджере - плагин для Eclipse под Ubuntu Linux.</a></li></li></ul></li></ul></div>
+
+                      </div>
+                    </div>
+                    <div id="psytronica_right_column_inner_after"></div>
+                </div>
+
+            </div>
+          	<div class="cleaner"></div>
+        </div>
+        <div id="psy_after_main"></div>
+        
+    </div>
+</div>
+
+<div class="cleaner"></div>
+
+
+
+<div id="psytronica_cr_bar_wrapper">
+	<div id="psytronica_cr_bar">
+    	
+© Psytronica.ru. Блог существа SherZa. 2015-2017
+
+        <a href="#top" class="to_anchor">Наверх</a>
+    </div>
+</div>
+
+
+<div id="dsq-count-scr-wrapper"></div>
+
+
+
+  
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter33338883 = new Ya.Metrika({
+                    id:33338883,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+  });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/33338883" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<script>
+  $(document).ready(function(){
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-91608488-1', 'auto');
+  ga('send', 'pageview');
+  });
+</script>
+
+</div>  
+ <style>
+   body{
+   	background: #2d261a;
+   }
+   body #psy_body_inner{
+		opacity:1;
+    } 
+  </style> 
+</body>
+</html>
+

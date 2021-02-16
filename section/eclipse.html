@@ -1,0 +1,889 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <base href="../" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Web-разработка, PHP, Javascript, jQuery, Joomla, eclipse" />
+    <meta name="rights" content="teafortwo.ru" />
+    <meta name="description" content="разработка плагинов для Eclipse, Web-разработка, разработка расширений для joomla, программные разработки для изучения иностранных языков" />
+    <meta name="generator" content="Psytronica.ru" />
+    <meta content='IE=edge' http-equiv='X-UA-Compatible'/>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+	<meta name="yandex-verification" content="70dcadaa2851af41" />
+	<link href="./yinyang.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+
+    <title>Psytronica.ru - Web-разработка, инстранные языки, Eclipse и разные разности - eclipse</title>
+    <link rel="stylesheet" href="./css/psytronica1.css" type="text/css" media="screen" /> 
+    <script src="./js/psytronica2.js" type="text/javascript"></script>
+
+
+
+
+</head>
+<body id='psy_body_section_eclipse' onload="setBodyWidth();">
+<div id="psy_body_inner">
+
+<div id="psytronica_menu_wrapper">
+    <div id="psytronica_menu" class="ddsmoothmenu">
+
+
+        <ul>
+            <li><a href='./index.html' class='psy_noactive'>Главная</a></li>
+            <li><a href='./search/label/разработки.html' class='psy_noactive'>Мои разработки</a>
+            </li>
+          <li><a href='./me.html' class='psy_noactive'>Контакты</a></li>
+        </ul>
+
+
+
+	<div id="psytronica_search" class='psy_search_div'>
+		  <input type="text" id='psy_search'  title="keyword" placeholder="Поиск..."/>
+		  <div id='psy_search_results'></div>
+	</div>
+
+        <br style="clear: left" />
+    </div> <!-- end of psytronica_menu -->
+</div> <!-- end of psytronica_menu_wrapper -->
+
+
+<div id="psytronica_header_wrapper" class="psytronica_header_other">
+    <div id="psytronica_header" class="header_home">
+        
+<div id="psytronica_sitetitle_bar">
+    <div id="site_title"><h1><a href='./index.html' class='psy_noactive'>Psytronica</a></h1></div>
+
+    <div id="mid_title">
+        Web-разработка, иностранные языки, Eclipse  и разные разности
+    </div>
+    <div class="cleaner"></div>
+</div>
+
+        
+
+    </div> <!-- end of header -->
+</div> <!-- end of header_wrapper -->
+
+
+<div id="psytronica_after_header">
+
+            <h3><a href='./2015/10/joomla-3x-zygoprofile-hkmprofile.html' class='psy_noactive'>Zygo Profile</a></h3>
+            <h3><a href='./2016/10/shabdatra.html' class='psy_noactive'>Санскрит - словоформы</a></h3>
+            <h3><a href='./2015/10/verbos-irregulares-android-kivy-python.html' class='psy_noactive'>Verbos Irregulares</a></h3>
+
+</div>
+
+
+
+
+
+
+
+<a name="blog"></a>
+
+<div id="psytronica_main_wrapper">
+
+    <div id="psytronica_main_inner">
+        <div id="psytronica_main">
+            <div id="psytronica_content_area">
+
+                
+<h3 class="psy_content_head psy_content_head_section">Eclipse</h3>
+ 
+<div id="psytronica_blog">
+
+<div class="psytronica_post even  psy_post_sections">
+    <h2><a href="./p/variable-support.html">9. Поддержка переменных.</a></h2>
+
+    <div class="date"><div class='psy_page_date'>09.11.2015</div></div>
+
+    <div class="psytronica_post_content" >
+        
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Давайте продолжим работу над нашим маленьким примером отладчика и добавим в него отображение переменных.<br />
+<br />
+<h4 style="text-align: left;">
+Шаг 1. Реализация классов переменных.</h4>
+<br />
+Переменные привяжутся к кадрам стека (<b>StackFrames</b>) и будут запрошены только в тот момент, когда отладчик будет приостановлен. Чтобы реализовать их, нам нужно описание переменных, сохраненное в <b>TextVariable</b>:<br />
+<br />
+<!-- HTML generated using hilite.me --><br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="color:#777; line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f92672;">package</span> <span style="color: #f8f8f2;">com</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">codeandme</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">textinterpreter</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">debugger</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">model</span><span style="color: #f92672;">;</span>  
+  
+<span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">class</span> <span style="color: #a6e22e;">TextVariable</span> <span style="color: #66d9ef;">extends</span> <span style="color: #f8f8f2;">TextDebugElement</span> <span style="color: #66d9ef;">implements</span> <span style="color: #f8f8f2;">IVariable</span> <span style="color: #f92672;">{</span>  
+  
+ <span style="color: #66d9ef;">private</span> <span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">mName</span><span style="color: #f92672;">;</span>  
+ <span style="color: #66d9ef;">private</span> <span style="color: #f8f8f2;">IValue</span> <span style="color: #f8f8f2;">mValue</span><span style="color: #f92672;">;</span>  
+  
+ <span style="color: #66d9ef;">protected</span> <span style="color: #a6e22e;">TextVariable</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IDebugTarget</span> <span style="color: #f8f8f2;">target</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">name</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">value</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">super</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">target</span><span style="color: #f92672;">);</span>  
+  <span style="color: #f8f8f2;">mName</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">name</span><span style="color: #f92672;">;</span>  
+  <span style="color: #f8f8f2;">setValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">value</span><span style="color: #f92672;">);</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">setValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">expression</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #f8f8f2;">mValue</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">TextValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">getDebugTarget</span><span style="color: #f92672;">(),</span> <span style="color: #f8f8f2;">expression</span><span style="color: #f92672;">);</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">setValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IValue</span> <span style="color: #f8f8f2;">value</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #f8f8f2;">mValue</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">value</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">supportsValueModification</span><span style="color: #f92672;">()</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">verifyValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">String</span> <span style="color: #f8f8f2;">expression</span><span style="color: #f92672;">)</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">verifyValue</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IValue</span> <span style="color: #f8f8f2;">value</span><span style="color: #f92672;">)</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #f8f8f2;">IValue</span> <span style="color: #a6e22e;">getValue</span><span style="color: #f92672;">()</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #f8f8f2;">mValue</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #f8f8f2;">String</span> <span style="color: #a6e22e;">getName</span><span style="color: #f92672;">()</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #f8f8f2;">mName</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #f8f8f2;">String</span> <span style="color: #a6e22e;">getReferenceTypeName</span><span style="color: #f92672;">()</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #e6db74;">"text type"</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">hasValueChanged</span><span style="color: #f92672;">()</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">DebugException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+<span style="color: #f92672;">}</span>  
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+<br />
+Реализация достаточно проста и не позволяет модифицировать содержимое переменных.<br />
+ </div>
+ 
+    </div>
+    <span class='readmore'><a class='psy_readmore' href='./p/variable-support.html'>Дальше >></a></span>
+
+    <div class="cleaner"></div>
+</div>
+<div class="psytronica_post_intro"></div>
+
+<div class="psytronica_post odd  psy_post_sections">
+    <h2><a href="./p/run-to-line.html">8. Добавляем поддержку "Перехода на строку" (Run to line)</a></h2>
+
+    <div class="date"><div class='psy_page_date'>08.11.2015</div></div>
+
+    <div class="psytronica_post_content" >
+        
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Специализированную поддержку перехода на строку осуществить достаточно просто. Большая часть обеспечивается фреймворком отладчика, все что нам нужно, это правильно воспользоваться этим.<br />
+<br />
+<h4 style="text-align: left;">
+Шаг 1. Осуществление поддержки редактора.</h4>
+<br />
+Чтобы использовать функционал перехода на строку из фреймворка отладчика, редактор исходного кода должен осуществлять интерфейс IRunToLineTarget.<br />
+<br />
+<!-- HTML generated using hilite.me --><br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f92672;">package</span> <span style="color: #f8f8f2;">com</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">codeandme</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">textinterpreter</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">debugger</span><span style="color: #f92672;">;</span>  
+  
+<span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">class</span> <span style="color: #a6e22e;">RunToLineTarget</span> <span style="color: #66d9ef;">implements</span> <span style="color: #f8f8f2;">IRunToLineTarget</span> <span style="color: #f92672;">{</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">runToLine</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IWorkbenchPart</span> <span style="color: #f8f8f2;">part</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">ISelection</span> <span style="color: #f8f8f2;">selection</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">ISuspendResume</span> <span style="color: #f8f8f2;">target</span><span style="color: #f92672;">)</span> <span style="color: #66d9ef;">throws</span> <span style="color: #f8f8f2;">CoreException</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">target</span> <span style="color: #66d9ef;">instanceof</span> <span style="color: #f8f8f2;">TextStackFrame</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+   <span style="color: #f8f8f2;">IDebugTarget</span> <span style="color: #f8f8f2;">debugTarget</span> <span style="color: #f92672;">=</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IDebugTarget</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">((</span><span style="color: #f8f8f2;">IAdaptable</span><span style="color: #f92672;">)</span> <span style="color: #f8f8f2;">target</span><span style="color: #f92672;">).</span><span style="color: #a6e22e;">getAdapter</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IDebugTarget</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">class</span><span style="color: #f92672;">);</span>  
+   <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">debugTarget</span> <span style="color: #66d9ef;">instanceof</span> <span style="color: #f8f8f2;">TextDebugTarget</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+    <span style="color: #f8f8f2;">IBreakpoint</span> <span style="color: #f8f8f2;">breakpoint</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">TextRunToLineBreakpoint</span><span style="color: #f92672;">(((</span><span style="color: #f8f8f2;">TextDebugTarget</span><span style="color: #f92672;">)</span> <span style="color: #f8f8f2;">debugTarget</span><span style="color: #f92672;">).</span><span style="color: #a6e22e;">getFile</span><span style="color: #f92672;">(),</span> <span style="color: #f8f8f2;">getLineNumber</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">selection</span><span style="color: #f92672;">));</span>  
+    <span style="color: #f8f8f2;">RunToLineHandler</span> <span style="color: #f8f8f2;">handler</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">RunToLineHandler</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">debugTarget</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">target</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">);</span>  
+    <span style="color: #f8f8f2;">handler</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">run</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">NullProgressMonitor</span><span style="color: #f92672;">());</span>  
+   <span style="color: #f92672;">}</span>  
+  <span style="color: #f92672;">}</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">canRunToLine</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IWorkbenchPart</span> <span style="color: #f8f8f2;">part</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">ISelection</span> <span style="color: #f8f8f2;">selection</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">ISuspendResume</span> <span style="color: #f8f8f2;">target</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">return</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">target</span> <span style="color: #66d9ef;">instanceof</span> <span style="color: #f8f8f2;">TextStackFrame</span><span style="color: #f92672;">);</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #66d9ef;">private</span> <span style="color: #66d9ef;">static</span> <span style="color: #66d9ef;">int</span> <span style="color: #a6e22e;">getLineNumber</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">ISelection</span> <span style="color: #f8f8f2;">selection</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">selection</span> <span style="color: #66d9ef;">instanceof</span> <span style="color: #f8f8f2;">ITextSelection</span><span style="color: #f92672;">)</span>  
+   <span style="color: #75715e;">// text selections are 0 based  </span>
+   <span style="color: #66d9ef;">return</span> <span style="color: #f92672;">((</span><span style="color: #f8f8f2;">ITextSelection</span><span style="color: #f92672;">)</span> <span style="color: #f8f8f2;">selection</span><span style="color: #f92672;">).</span><span style="color: #a6e22e;">getStartLine</span><span style="color: #f92672;">()</span> <span style="color: #f92672;">+</span> <span style="color: #ae81ff;">1</span><span style="color: #f92672;">;</span>  
+  
+  <span style="color: #66d9ef;">return</span> <span style="color: #ae81ff;">0</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+<span style="color: #f92672;">}</span>  
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+<br />
+В вызове <b>runToLine</b>() мы создаем новый &nbsp;<b>TextRunToLineBreakpoint</b>, автоматически активируемый разработчиком. Единственное отличие от <b>TextLineBreakpoint</b> заключается в том, что мы устанавливаем его флаг <b>PERSISTED</b> в <b>false</b>.<br />
+<br />
+Реализация отладочного фреймворка так же учитывает установки предпочтений точек останова <b>Run/Debug / Skip</b> в течение обработки 'Перехода на Строку'. Хотя мне такая реализация кажется немного некорректной. Поскольку демо-интерпретатор работает молниеносно, обычные точки останова временами не будут отключаться достаточно быстро и могут даже сработать.<br />
+<br />
+<h4 style="text-align: left;">
+Шаг 2. Регистрация интеграции UI.</h4>
+<br />
+Чтобы добавить действие (action) в контекстное меню редактора, нам нужно добавить новую точку расширения <b>org.eclipse.ui.popupMenus</b>. Добавьте viewerContribution с значением id равным <i>"textEditor.editorActions"</i> и targetID - <i>"#TextEditorContext"</i>. Теперь добавьте действие перехода на строку (Run to line) таким образом, как показано на скриншоте<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="./images/eclipse/debugger/runtoline.png" class="psy_img_up" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="auto" src="./images/eclipse/debugger/runtoline.png" width="90%" /></a></div>
+<br />
+<br />
+Кроме того, нам необходимо зарегистрировать адаптер для текстового редактора, поскольку он изначально не осуществляет интерфейс IRunToLineTarget. <a href="http://codeandme.googlecode.com/svn/trunk/blog/debugger/08/com.codeandme.textinterpreter.debugger/src/com/codeandme/textinterpreter/debugger/RunToLineAdapter.java" target="_blank">RunToLineAdapter</a> всего лишь превращает редакторы в <b>IRunToLineTargets</b>.</div>
+<br />
+<div style="text-align: right;">
+<a href="http://codeandme.blogspot.ru/2013/11/debugger-8-adding-run-to-line-support.html" target="_blank"><i>Английский оригинал и исходные коды</i></a></div>
+
+
+    </div>
+    
+
+    <div class="cleaner"></div>
+</div>
+<div class="psytronica_post_intro"></div>
+
+<div class="psytronica_post even  psy_post_sections">
+    <h2><a href="./p/7.html">7. Поиск исходника.</a></h2>
+
+    <div class="date"><div class='psy_page_date'>07.11.2015</div></div>
+
+    <div class="psytronica_post_content" >
+        
+<div dir="ltr" style="text-align: left;" trbidi="on">
+Иметь поддержку пошагового прохода и исходного кода - замечательно, но пользователю необходима видимая обратная связь, чтобы понять, где отладчик временно приостановил работу. Исходный код должен быть открыт в редакторе и текущая строка должна быть подсвечена.<br />
+<br />
+Фреймворк отладчика содержит специализированное решение, которое ищет файлы исходика в обозначенных директориях проекта. Первый способ этим воспользоваться - в вашем проекте должна быть возможность настроить поиск директорий с исходниками. Второй вариант - реализовать поиск исходника полностью из временного файла. В нашем случае последний вариант является наиболее простым.<br />
+<br />
+<h4 style="text-align: left;">
+Шаг 1. Развернутая картина.</h4>
+<br />
+Когда поток отладчика начинает обработку, он обычно вызывает файлы, методы или функции. Такие элементы составляют <a href="https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D0%B5%D0%BA_%D0%B2%D1%8B%D0%B7%D0%BE%D0%B2%D0%BE%D0%B2" target="_blank">стек вызовов</a>. Фреймворк отладчика использует этот стек, чтобы установить текущее место в исходном коде. Каждый элемент стека может быть привязан к определенному месту исходника (содержимое редактора + выделение внутри редактора).<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="./images/eclipse/debugger/scl_most_general_case.gif" imageanchor="1" class="psy_img_up" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="auto" src="./images/eclipse/debugger/scl_most_general_case.gif" width="90%" /></a></div>
+<br />
+<br />
+Интерфейс <b>ISourceLocator</b> прикрепляется к расширению запуска как правило посредством использования точки расширения <b>org.eclipse.debug.core.sourceLocators</b>. Локатор превращает IStackFrame в элемент исходника посредством <b>getSourceElement(IStackFrame stackFrame)</b>. Этот элемент обычно запрашивает <b>IEditorInput</b> и <b>editorID</b> из отладочной модели. Теперь редактор можно открыть. Выделение строки находится из стекового кадра.<br />
+<br />
+  </div>
+
+    </div>
+    <span class='readmore'><a class='psy_readmore' href='./p/7.html'>Дальше >></a></span>
+
+    <div class="cleaner"></div>
+</div>
+<div class="psytronica_post_intro"></div>
+
+<div class="psytronica_post even  psy_post_sections">
+    <h2><a href="./p/ui-debug-model.html">6. Интеграция точек останова и отладчика</a></h2>
+
+    <div class="date"><div class='psy_page_date'>06.11.2015</div></div>
+
+    <div class="psytronica_post_content" >
+        
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<div style="text-align: right;">
+<a href="http://codeandme.blogspot.ru/2013/11/debugger-6-debugger-breakpoint.html" target="_blank"><i>Английский оригинал и исходный код</i></a></div>
+<br />
+После того, как мы уже реализовали возможность работы с точками останова из UI, нам нужно научить нашу модель отладчика (<b>debug model</b>) и отладчик их использовать.<br />
+<br />
+<h4 style="text-align: left;">
+Шаг 1. Добавление точек останова в модель.</h4>
+<br />
+Отладчики как правило временно приостанавливаются, когда загружается новый файл с исходными кодами. Затем модель может привязать точки останова к отладчику, после чего возобновить работу.<br />
+<br />
+Модель отладчика (debug model) может оказывать воздействие и устанавливать точки останова до того, как выполнение продолжится. Помимо того нам необходимо улавливать изменения, касающиеся точек останова, чтобы добавлять новые точки останова в отладчик или удалять их, когда они отключаются или удаляются пользователем.<br />
+<br />
+Давайте начнем с реализации слушателя событий (<b>listener</b>):<br />
+<br />
+<br />
+<!-- HTML generated using hilite.me --><br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f92672;">package</span> <span style="color: #f8f8f2;">com</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">codeandme</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">textinterpreter</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">debugger</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">model</span><span style="color: #f92672;">;</span>  
+  
+<span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">class</span> <span style="color: #a6e22e;">TextDebugTarget</span> <span style="color: #66d9ef;">extends</span> <span style="color: #f8f8f2;">TextDebugElement</span> <span style="color: #66d9ef;">implements</span> <span style="color: #f8f8f2;">IDebugTarget</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">IEventProcessor</span> <span style="color: #f92672;">{</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">supportsBreakpoint</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">IBreakpoint</span> <span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">mFile</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">equals</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getMarker</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getResource</span><span style="color: #f92672;">()))</span> <span style="color: #f92672;">{</span>  
+   <span style="color: #75715e;">// breakpoint on our source file  </span>
+   <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">true</span><span style="color: #f92672;">;</span>  
+  <span style="color: #f92672;">}</span>  
+  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #66d9ef;">private</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">isEnabledBreakpoint</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IBreakpoint</span> <span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">try</span> <span style="color: #f92672;">{</span>  
+   <span style="color: #66d9ef;">return</span> <span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">isEnabled</span><span style="color: #f92672;">()</span> <span style="color: #f92672;">&amp;&amp;</span> <span style="color: #f8f8f2;">DebugPlugin</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getDefault</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getBreakpointManager</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">isEnabled</span><span style="color: #f92672;">();</span>  
+  <span style="color: #f92672;">}</span> <span style="color: #66d9ef;">catch</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">CoreException</span> <span style="color: #f8f8f2;">e</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+   <span style="color: #75715e;">// ignore invalid breakpoint  </span>
+  <span style="color: #f92672;">}</span>  
+  
+  <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">false</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #75715e;">// ************************************************************  </span>
+ <span style="color: #75715e;">// IBreakpointListener  </span>
+ <span style="color: #75715e;">// ************************************************************  </span>
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">breakpointAdded</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">IBreakpoint</span> <span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">((</span><span style="color: #f8f8f2;">supportsBreakpoint</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">))</span> <span style="color: #f92672;">&amp;&amp;</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">isEnabledBreakpoint</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">)))</span>  
+   <span style="color: #f8f8f2;">fireModelEvent</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">BreakpointRequest</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">BreakpointRequest</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">ADDED</span><span style="color: #f92672;">));</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">breakpointRemoved</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">IBreakpoint</span> <span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">,</span> <span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">IMarkerDelta</span> <span style="color: #f8f8f2;">delta</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">supportsBreakpoint</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">))</span>  
+   <span style="color: #f8f8f2;">fireModelEvent</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">BreakpointRequest</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">BreakpointRequest</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">REMOVED</span><span style="color: #f92672;">));</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">breakpointChanged</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">IBreakpoint</span> <span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">,</span> <span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">IMarkerDelta</span> <span style="color: #f8f8f2;">delta</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #f8f8f2;">breakpointRemoved</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">delta</span><span style="color: #f92672;">);</span>  
+  <span style="color: #f8f8f2;">breakpointAdded</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">);</span>  
+ <span style="color: #f92672;">}</span>  
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+Поскольку точки останова могут быть предназначены незначащим файлам с исходными кодами или даже другим языками, нам надо удостовериться, что точка останова относится к нашем файлу с исходником. Если да, мы посылаем соответствующее событие отладчику.<br />
+<br />
+Пока нет дальнейших проверок для удаления точек останова, мы добавляем только активные точки останова. Существует две различных возможности включения/отключения точек останова, которые нам надо проверить: может ли быть отключена сама точка останова и/или менеджер точек останова (<b>BreakpointManager</b>) может быть отключен глобально.<br />
+<br />
+Сейчас нам необходимо позаботиться о том, что мы отслеживаем изменения, связанные в точках останова согласно тому, что указано в менеджере точек останова (BreakpointManager).<br />
+<br />
+<br />
+<!-- HTML generated using hilite.me --><br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f92672;">package</span> <span style="color: #f8f8f2;">com</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">codeandme</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">textinterpreter</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">debugger</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">model</span><span style="color: #f92672;">;</span>  
+  
+<span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">class</span> <span style="color: #a6e22e;">TextDebugTarget</span> <span style="color: #66d9ef;">extends</span> <span style="color: #f8f8f2;">TextDebugElement</span> <span style="color: #66d9ef;">implements</span> <span style="color: #f8f8f2;">IDebugTarget</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">IEventProcessor</span> <span style="color: #f92672;">{</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">handleEvent</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">IDebugEvent</span> <span style="color: #f8f8f2;">event</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  
+  <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(!</span><span style="color: #f8f8f2;">isDisconnected</span><span style="color: #f92672;">())</span> <span style="color: #f92672;">{</span>  
+   <span style="color: #f8f8f2;">System</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">out</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">println</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Target.handleEvent() "</span> <span style="color: #f92672;">+</span> <span style="color: #f8f8f2;">event</span><span style="color: #f92672;">);</span>  
+  
+   <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">event</span> <span style="color: #66d9ef;">instanceof</span> <span style="color: #f8f8f2;">DebuggerStartedEvent</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+    <span style="color: #75715e;">// create debug thread  </span>
+    <span style="color: #f8f8f2;">TextThread</span> <span style="color: #f8f8f2;">thread</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">TextThread</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">this</span><span style="color: #f92672;">);</span>  
+    <span style="color: #f8f8f2;">mThreads</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">add</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">thread</span><span style="color: #f92672;">);</span>  
+    <span style="color: #f8f8f2;">thread</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">fireCreationEvent</span><span style="color: #f92672;">();</span>  
+  
+    <span style="color: #75715e;">// debugger got started and waits in suspended mode  </span>
+    <span style="color: #f8f8f2;">setState</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">State</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">SUSPENDED</span><span style="color: #f92672;">);</span>  
+  
+    <span style="color: #75715e;">// add breakpoint listener  </span>
+    <span style="color: #f8f8f2;">DebugPlugin</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getDefault</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getBreakpointManager</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">addBreakpointListener</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">this</span><span style="color: #f92672;">);</span>  
+  
+    <span style="color: #75715e;">// attach deferred breakpoints to debugger  </span>
+    <span style="color: #f8f8f2;">IBreakpoint</span><span style="color: #f92672;">[]</span> <span style="color: #f8f8f2;">breakpoints</span> <span style="color: #f92672;">=</span> <span style="color: #f8f8f2;">DebugPlugin</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getDefault</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getBreakpointManager</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getBreakpoints</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">getModelIdentifier</span><span style="color: #f92672;">());</span>  
+    <span style="color: #66d9ef;">for</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IBreakpoint</span> <span style="color: #f8f8f2;">breakpoint</span> <span style="color: #f92672;">:</span> <span style="color: #f8f8f2;">breakpoints</span><span style="color: #f92672;">)</span>  
+     <span style="color: #f8f8f2;">breakpointAdded</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">breakpoint</span><span style="color: #f92672;">);</span>  
+  
+    <span style="color: #75715e;">// resume execution after setting breakpoints  </span>
+    <span style="color: #f8f8f2;">resume</span><span style="color: #f92672;">();</span>  
+  
+   <span style="color: #f92672;">[...]</span>  
+  
+   <span style="color: #f92672;">}</span> <span style="color: #66d9ef;">else</span> <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">event</span> <span style="color: #66d9ef;">instanceof</span> <span style="color: #f8f8f2;">TerminatedEvent</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+    <span style="color: #75715e;">// debugger is terminated  </span>
+    <span style="color: #f8f8f2;">setState</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">State</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">TERMINATED</span><span style="color: #f92672;">);</span>  
+  
+    <span style="color: #75715e;">// unregister breakpoint listener  </span>
+    <span style="color: #f8f8f2;">DebugPlugin</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">getDefault</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getBreakpointManager</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">removeBreakpointListener</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">this</span><span style="color: #f92672;">);</span>  
+  
+    <span style="color: #75715e;">// we do not need our dispatcher anymore  </span>
+    <span style="color: #f8f8f2;">mDispatcher</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">terminate</span><span style="color: #f92672;">();</span>  
+  
+    <span style="color: #75715e;">// inform eclipse of terminated state  </span>
+    <span style="color: #f8f8f2;">fireTerminateEvent</span><span style="color: #f92672;">();</span>  
+   <span style="color: #f92672;">}</span>  
+  <span style="color: #f92672;">}</span>  
+ <span style="color: #f92672;">}</span>  
+<span style="color: #f92672;">}</span>  
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+В событии <b>DebuggerStartedEvent</b> нам необходимо указать все значимые точки останова. После чего мы сможем продолжить, поскольку нам будет доступна полная поддержка точек останова.<br />
+<br />
+<h4 style="text-align: left;">
+Шаг 2. Добавление поддержки точек останова в отладчик.</h4>
+<br />
+Нашему отладчику нужно закешировать точки останова и проверить их в событии изменения строки. В нашем случае мы будем только отслеживать номера строк, на которых мы хотим задержаться:<br />
+<br />
+<br />
+<!-- HTML generated using hilite.me --><br />
+<div style="background: #272822; border-width: .1em .1em .1em .8em; border: solid gray; overflow: auto; padding: .2em .6em; width: auto;">
+<table><tbody>
+<tr><td><pre style="line-height: 125%; margin: 0;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre>
+</td><td><pre style="line-height: 125%; margin: 0;"><span style="color: #f92672;">package</span> <span style="color: #f8f8f2;">com</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">codeandme</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">textinterpreter</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">debugger</span><span style="color: #f92672;">;</span>  
+  
+<span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">class</span> <span style="color: #a6e22e;">TextDebugger</span> <span style="color: #66d9ef;">implements</span> <span style="color: #f8f8f2;">IDebugger</span><span style="color: #f92672;">,</span> <span style="color: #f8f8f2;">IEventProcessor</span> <span style="color: #f92672;">{</span>  
+  
+ <span style="color: #66d9ef;">private</span> <span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">Set</span><span style="color: #f92672;">&lt;</span><span style="color: #f8f8f2;">integer</span><span style="color: #f92672;">&gt;</span> <span style="color: #f8f8f2;">mBreakpoints</span> <span style="color: #f92672;">=</span> <span style="color: #66d9ef;">new</span> <span style="color: #f8f8f2;">HashSet</span><span style="color: #f92672;">&lt;</span><span style="color: #f8f8f2;">integer</span><span style="color: #f92672;">&gt;();</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">boolean</span> <span style="color: #a6e22e;">isBreakpoint</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">final</span> <span style="color: #66d9ef;">int</span> <span style="color: #f8f8f2;">lineNumber</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">mBreakpoints</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">contains</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">lineNumber</span><span style="color: #f92672;">))</span>  
+   <span style="color: #66d9ef;">return</span> <span style="color: #66d9ef;">true</span><span style="color: #f92672;">;</span>  
+  
+  <span style="color: #66d9ef;">return</span> <span style="color: #f8f8f2;">mIsStepping</span><span style="color: #f92672;">;</span>  
+ <span style="color: #f92672;">}</span>  
+  
+ <span style="color: #a6e22e;">@Override</span>  
+ <span style="color: #66d9ef;">public</span> <span style="color: #66d9ef;">void</span> <span style="color: #a6e22e;">handleEvent</span><span style="color: #f92672;">(</span><span style="color: #66d9ef;">final</span> <span style="color: #f8f8f2;">IDebugEvent</span> <span style="color: #f8f8f2;">event</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+  <span style="color: #f8f8f2;">System</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">out</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">println</span><span style="color: #f92672;">(</span><span style="color: #e6db74;">"Debugger.handleEvent() "</span> <span style="color: #f92672;">+</span> <span style="color: #f8f8f2;">event</span><span style="color: #f92672;">);</span>  
+  
+  <span style="color: #f92672;">[...]</span>  
+  
+  <span style="color: #f92672;">}</span> <span style="color: #66d9ef;">else</span> <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">event</span> <span style="color: #66d9ef;">instanceof</span> <span style="color: #f8f8f2;">BreakpointRequest</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+   <span style="color: #66d9ef;">int</span> <span style="color: #f8f8f2;">line</span> <span style="color: #f92672;">=</span> <span style="color: #f92672;">((</span><span style="color: #f8f8f2;">BreakpointRequest</span><span style="color: #f92672;">)</span> <span style="color: #f8f8f2;">event</span><span style="color: #f92672;">).</span><span style="color: #a6e22e;">getBreakpoint</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getMarker</span><span style="color: #f92672;">().</span><span style="color: #a6e22e;">getAttribute</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">IMarker</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">LINE_NUMBER</span><span style="color: #f92672;">,</span> <span style="color: #f92672;">-</span><span style="color: #ae81ff;">1</span><span style="color: #f92672;">);</span>  
+   <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(</span><span style="color: #f8f8f2;">line</span> <span style="color: #f92672;">!=</span> <span style="color: #f92672;">-</span><span style="color: #ae81ff;">1</span><span style="color: #f92672;">)</span> <span style="color: #f92672;">{</span>  
+    <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">(((</span><span style="color: #f8f8f2;">BreakpointRequest</span><span style="color: #f92672;">)</span> <span style="color: #f8f8f2;">event</span><span style="color: #f92672;">).</span><span style="color: #a6e22e;">getType</span><span style="color: #f92672;">()</span> <span style="color: #f92672;">==</span> <span style="color: #f8f8f2;">BreakpointRequest</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">ADDED</span><span style="color: #f92672;">)</span>  
+     <span style="color: #f8f8f2;">mBreakpoints</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">add</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">line</span><span style="color: #f92672;">);</span>  
+  
+    <span style="color: #66d9ef;">else</span> <span style="color: #a6e22e;">if</span> <span style="color: #f92672;">(((</span><span style="color: #f8f8f2;">BreakpointRequest</span><span style="color: #f92672;">)</span> <span style="color: #f8f8f2;">event</span><span style="color: #f92672;">).</span><span style="color: #a6e22e;">getType</span><span style="color: #f92672;">()</span> <span style="color: #f92672;">==</span> <span style="color: #f8f8f2;">BreakpointRequest</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">REMOVED</span><span style="color: #f92672;">)</span>  
+     <span style="color: #f8f8f2;">mBreakpoints</span><span style="color: #f92672;">.</span><span style="color: #a6e22e;">remove</span><span style="color: #f92672;">(</span><span style="color: #f8f8f2;">line</span><span style="color: #f92672;">);</span>  
+   <span style="color: #f92672;">}</span>  
+  <span style="color: #f92672;">}</span>  
+ <span style="color: #f92672;">}</span>  
+<span style="color: #f92672;">}</span>
+</pre>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+Механизм установки и кеширования точек останова может быть немного более сложным в реальной жизни, поскольку вы имеете возможность поддерживать различные типы точек останова наподобие точек останова в функциях (<b>function breakpoints</b>) и контрольных точек (<b>watchpoints</b>).</div>
+
+
+    </div>
+    
+
+    <div class="cleaner"></div>
+</div>
+<div class="psytronica_post_intro"></div>
+
+<div class="psytronica_post odd  psy_post_sections">
+    <h2><a href="./p/4-eclipse.html">5. UI интеграция точек останова.</a></h2>
+
+    <div class="date"><div class='psy_page_date'>05.11.2015</div></div>
+
+    <div class="psytronica_post_content" >
+        
+<div dir="ltr" style="text-align: left;" trbidi="on">
+<div style="text-align: right;">
+<a href="http://codeandme.blogspot.ru/2013/11/debugger-5-ui-breakpoint-integration.html" target="_blank"><i>Английский оригинал и исходный код</i></a></div>
+<br />
+В предыдущей части руководства мы реализовали проход по исходному коду. Пошаговый проход - это здорово, но нам еще нужно добавить поддержку точек останова для улучшения качества отладки. В конце данного руководства мы сможем устанавливать их, используя UI:<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a class="psy_img_up" href="./images/eclipse/debugger/debug12.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="284" src="./images/eclipse/debugger/debug12.png" width="320" /></a></div>
+<br />
+<br />
+В среде Эклипс существует несколько разновидностей точек останова:<br />
+точки останова на строке (<b>line breakpoints</b>) - остановка исполнения кода на определенной строке, точка останова на функции (<b>function breakpoints</b>) - останов происходит, когда вызывается некоторая функция foo(), контрольные точки (<b>watchpoints</b>) - останов происходит, когда определенная переменная используется в коде или изменяет свое значение. Не все из них имеют смысл, когда речь идет о каком-либо специализированном языке. В этом руководстве мы рассмотрим только точки останова на строке.<br />
+<br />
+  </div>
+
+    </div>
+    <span class='readmore'><a class='psy_readmore' href='./p/4-eclipse.html'>Дальше >></a></span>
+
+    <div class="cleaner"></div>
+</div>
+<div class="psytronica_post_intro"></div>
+
+</div>
+
+
+            </div>
+            <div id="psytronica_right_column">
+                <div id="psytronica_right_column_inset">
+                    <div id="psytronica_right_column_inner">
+                      <div id="psytronica_right_column_innering">
+                        
+<h5>Облако тегов</h5>
+<div class='psy_tags2'><a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/cke.html'>cke<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/eclipse.html'>eclipse<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/filemanager.html'>filemanager<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/inno.html'>inno<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/jlnodoubles.html'>jlnodoubles<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='8' style='font-size:20px; color:rgba(255, 221, 173, 1)' href='./search/label/joomla.html'>joomla<span>&nbsp;(8)</span></a> <a class='psy_tag_calc_link' tagcount='2' style='font-size:11px; color:rgba(255, 111, 73, 1)' href='./search/label/joomshopping.html'>joomshopping<span>&nbsp;(2)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/php.html'>php<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/plug-in_development.html'>plug-in development<span>&nbsp;(4)</span></a>  <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/shnodoubles.html'>shnodoubles<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/tiddlyWiki.html'>tiddlyWiki<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/ubuntu.html'>ubuntu<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/zygo_profile.html'>zygo_profile<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/друзья.html'>друзья<span>&nbsp;(1)</span></a> <a class='psy_tag_calc_link' tagcount='4' style='font-size:14px; color:rgba(255, 163, 80, 1)' href='./search/label/разработки.html'>разработки<span>&nbsp;(4)</span></a> <a class='psy_tag_calc_link' tagcount='1' style='font-size:10px; color:rgba(255, 80, 80, 1)' href='./search/label/санскрит.html'>санскрит<span>&nbsp;(1)</span></a> </div>
+ 
+<h5>Меню</h5>
+<ul class="psy_right_menu">
+<li><a href='./#blog' class='psy_noactive'>Главная</a></li>
+<li><a href='./section/Создание_собственного_отладчика_в_Eclipse.html' class='psy_noactive'>Создание собственного отладчика в Eclipse</a></li>
+<li><a href='./section/санскрит.html' class='psy_noactive'>Санскрит - немножко перевожу</a></li>
+<li><a href='./section/camino_latino.html' class='psy_noactive'>Camino Latino - истории о латинской америке</a></li>
+</ul>
+<h5>Архив</h5>
+<div class='psy_archive'>
+    <div class='psy_archive_elems' style='display:none'>
+            <span class='el_open'>&#9660;&#160;</span>
+            <span class='el_closed'>&#9658;&#160;</span>
+    </div>
+    <ul class='psy_archive_years'><li class='last_year' >
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-open'>&#9660;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2017</a><ul class='psy_archive_mons'><li class='last_month' >
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-open'>&#9660;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>03</a><ul class='psy_archive_days'><li><a href='./2017/03/eclipse-wizard-open-programmatically.html'>Вызов wizard'а в Eclipse по кнопке или по shortcut'y в меню</a></li><li><a href='./2017/03/eclipse-custom-project-nature-icons.html'>Eclipse: особые иконки в Project Explorer для проекта с определенной Nature</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>02</a><ul class='psy_archive_days'><li><a href='./2017/02/joomshopping-list-to-text-attribute.html'>Joomshopping - замена выпадающих списков с единственным элементом на текст в независимых атрибутах</a></li><li><a href='./2017/02/cke-joomla3-problem.html'>Фикс: проблема с CKE-редактором под Joomla 3</a></li><li><a href='./2017/02/zygo-profile-autoupdates-webcam.html'>Новый релиз Zygo Profile: автообновления, камера, поддержка Joomla 3.7</a></li><li><a href='./2017/02/Zygo-Joomshopping-Review-Captcha.html'>Zygo Joomshopping Review Captcha - капча KCaptcha для отзывов в интернет-магазине Joomshopping</a></li><li><a href='./2017/02/svetomaster_video.html'>Подарок от Евгения</a></li><li><a href='./2017/02/inno-recursive-file-copy-timestamps.html'>Inno - создание инсталлятора. Рекурсивное копирование файлов внешней директории, учитывая даты.</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>01</a><ul class='psy_archive_days'><li><a href='./2017/01/tiddlywiki-php7-last-backups-store.html'>TiddlyWiki: сохранение 10 последних резервных копий на сервере.</a></li></ul></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2016</a><ul class='psy_archive_mons'><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>11</a><ul class='psy_archive_days'><li><a href='./2016/11/zygoprofile-checkbox-checkboxes-html_88.html'>ZygoProfile: добавлены поля checkbox, checkboxes, html</a></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>10</a><ul class='psy_archive_days'><li><a href='./2016/10/zygoprofile.html'>ZygoProfile - назначение полей группам пользователей.</a></li><li><a href='./2016/10/shabdatra.html'>Санскрит -  запоминание глагольных форм</a></li></ul></li></ul></li><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_year_title' href='#'>2015</a><ul class='psy_archive_mons'><li>
+                    <a class='toggle' href='javascript:void(0)'>
+                        <span class='zippy toggle-closed'>&#9658;&#160;</span>
+                    </a>
+                    <a class='psy_mon_title' href='#'>10</a><ul class='psy_archive_days'><li><a href='./2015/10/joomla-3x-zygoprofile-hkmprofile.html'>Плагин расширенного профиля Joomla 3.x с поддержкой аватаров (обработка имиджей, обрезка миниатюр) - Zygo Profile</a></li><li><a href='./2015/10/eclipse-ivaluevariable-idynamicvariable.html'>Переменные в плагинах Eclipse. Интерфейсы IValueVariable и IDynamicVariable</a></li><li><a href='./2015/10/verbos-irregulares-android-kivy-python.html'>Verbos irregulares - приложение для android для запоминания неправильных испанских глаголов.</a></li><li><a href='./2015/10/eclipse-ubuntu-linux.html'>Открыть ресурс в файловом менеджере - плагин для Eclipse под Ubuntu Linux.</a></li></li></ul></li></ul></div>
+
+                      </div>
+                    </div>
+                    <div id="psytronica_right_column_inner_after"></div>
+                </div>
+
+            </div>
+          	<div class="cleaner"></div>
+        </div>
+        <div id="psy_after_main"></div>
+        <div class='psy_pagination'><span class='psy_page_first'><span> &lt;&lt; </span></span><span class='psy_page_prev'><span> &lt; </span></span><span class='psy_page_cur' ><span>1</span></span><a class='psy_page_other' href='./section/eclipse/page2.html'><span>2</span></a><a class='psy_page_next' href='./section/eclipse/page2.html'><span> &gt; </span></a><a class='psy_page_end' href='./section/eclipse/page2.html'><span> &gt;&gt; </span></a><div class='clearfix'></div></div>
+    </div>
+</div>
+
+<div class="cleaner"></div>
+
+
+
+<div id="psytronica_cr_bar_wrapper">
+	<div id="psytronica_cr_bar">
+    	
+© Psytronica.ru. Блог существа SherZa. 2015-2017
+
+        <a href="#top" class="to_anchor">Наверх</a>
+    </div>
+</div>
+
+
+<div id="dsq-count-scr-wrapper"></div>
+
+
+
+  
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter33338883 = new Ya.Metrika({
+                    id:33338883,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+  });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/33338883" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+<script>
+  $(document).ready(function(){
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-91608488-1', 'auto');
+  ga('send', 'pageview');
+  });
+</script>
+
+</div>  
+ <style>
+   body{
+   	background: #2d261a;
+   }
+   body #psy_body_inner{
+		opacity:1;
+    } 
+  </style> 
+</body>
+</html>
+
